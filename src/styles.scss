@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import "./app/shared/styles/VScss/VSstyles.scss";
+@import "./app/shared/styles/VScss/variables";
+@import "./app/app.component.scss";
+@import "./app/shared/styles/custom.scss";
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.select {
+	.ant-select-selector {
+		height: $default-size * 3 + ($default-size * 0.15 * 2) !important;
+		padding: ($default-size * 0.15) 0.9rem !important;
+	}
+}
+
+.min-size, .min-width {
+	width: 1%;
+	white-space: nowrap;
+}
+
+.full-screen-drawer {
+	.ant-drawer-content {
+		.ant-drawer-wrapper-body {
+			.ant-drawer-body {
+				padding: 0;
+			}
+		}
+	}
+}

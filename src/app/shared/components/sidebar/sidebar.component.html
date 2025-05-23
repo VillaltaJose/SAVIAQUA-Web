@@ -1,0 +1,43 @@
+<div class="py-20 w-full h-full bg-theme-bluegray-100 border-r-1 border-solid border-theme-bluegray-300">
+
+	<div class="w-full mb-30">
+		<a routerLink="inicio" routerLinkActive="item-active" class="display-block m-0 text-black px-12 py-5 m-0 mb-10">
+			<span nz-icon nzType="home" class="display-inline-block m-0 text-center w-20 mr-5"></span>
+			Inicio
+		</a>
+
+		<a routerLink="juntas" routerLinkActive="item-active" class="display-block m-0 text-black px-12 py-5 m-0 mb-10">
+			<span nz-icon nzType="experiment" class="display-inline-block m-0 text-center w-20 mr-5"></span>
+			Monitoreo de juntas
+		</a>
+	</div>
+
+	<div class="w-full mb-30">
+		<p class="px-12 display-block m-0 text-theme-black-200 mb-12 text-sm font-medium">
+			CONFIGURACIÓN
+		</p>
+
+		<a routerLink="usuarios" routerLinkActive="item-active" class="display-block m-0 text-black px-12 py-5 m-0 mb-10">
+			<span nz-icon nzType="user" class="display-inline-block m-0 text-center w-20 mr-5"></span>
+			Usuarios
+		</a>
+
+		<a routerLink="roles" routerLinkActive="item-active" class="display-block m-0 text-black px-12 py-5 m-0 mb-10">
+			<span nz-icon nzType="sliders" class="display-inline-block m-0 text-center w-20 mr-5"></span>
+			Roles y permisos
+		</a>
+
+		<a routerLink="reportes" routerLinkActive="item-active" class="display-block m-0 text-black px-12 py-5 m-0 mb-10">
+			<span nz-icon nzType="snippets" class="display-inline-block m-0 text-center w-20 mr-5"></span>
+			Reportes
+		</a>
+	</div>
+
+	<div class="w-full mb-30">
+		<a (click)="logOut()" class="cursor-pointer hover:text-red-700 display-block m-0 text-black px-12 py-5 m-0 mb-10">
+			<span nz-icon nzType="logout" class="display-inline-block m-0 text-center w-20 mr-5"></span>
+			Cerrar Sesión
+		</a>
+	</div>
+
+</div>

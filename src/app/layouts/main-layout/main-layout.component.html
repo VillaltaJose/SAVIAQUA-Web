@@ -1,0 +1,20 @@
+<div class="w-screen h-screen flex flex-no-wrap flex-column">
+	<div class="w-full">
+		<app-header></app-header>
+	</div>
+
+	<div class="w-full h-full flex flex-no-wrap">
+		<div class="relative" style="width: 30rem;">
+			<app-sidebar></app-sidebar>
+
+			<button class="absolute top-5 border-0 bg-theme-bluegray-300 rounded-sm hover:bg-theme-bluegray-400 cursor-pointer" style="width: 2.8rem; height: 2.8rem; right: -1.4rem;">
+				X
+			</button>
+		</div>
+
+		<div class="w-full">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
+
+</div>
