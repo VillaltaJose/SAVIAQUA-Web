@@ -53,7 +53,7 @@
 		</div>
 	</form>
 
-	<div class="w-full">
+	<div *ngIf="visualizacion == 'table'" class="w-full">
 		<nz-table #nzTable
 			[nzData]="[1,1,1,1]"
 			nzSize="small"
@@ -89,5 +89,11 @@
 				</tr>
 			</tbody>
 		</nz-table>
+	</div>
+
+	<div *ngIf="visualizacion == 'map'" class="w-full">
+		<google-map height="400px" width="100%" [center]="center" [zoom]="zoom">
+			<map-marker [position]="markerPosition" [options]="markerOptions"></map-marker>
+		</google-map>
 	</div>
 </div>

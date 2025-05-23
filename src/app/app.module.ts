@@ -17,7 +17,6 @@ registerLocaleData(es);
 	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
-
 		AppRoutingModule,
 		FormsModule,
 		HttpClientModule,
