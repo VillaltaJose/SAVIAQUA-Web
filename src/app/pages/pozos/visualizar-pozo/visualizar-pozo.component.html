@@ -1,0 +1,30 @@
+<div class="w-full p-20">
+
+	<div class="w-full flex items-center flex-no-wrap gap-15 mb-20">
+		<button nz-button nzSize="small" style="margin-top: 0.3rem;">
+			<span nz-icon nzType="left"></span>
+		</button>
+
+		<div>
+			<h4 class="display-block m-0 font-bold text-lg">Nombre Pozo</h4>
+			<p class="display-block m-0 text-theme-bluegray-500 text-smd font-medium">Nombre Junta</p>
+		</div>
+	</div>
+
+	<div class="w-full grid gap-20">
+		<div *ngFor="let c of charts" class="grid-col-4 rounded-sm border-1 border-solid border-theme-bluegray-400 overflow-hidden">
+			<p class="display-block m-0 font-semibold border-b-1 border-solid border-theme-bluegray-400 text-smd px-10 py-7 bg-theme-bluegray-100">
+				{{ c.name }}
+			</p>
+
+			<div class="w-full p-7" style="aspect-ratio: 2 / 1;">
+				<ngx-charts-bar-vertical
+					[results]="c.data"
+					>
+				</ngx-charts-bar-vertical>
+			</div>
+		</div>
+	</div>
+
+</div>
+

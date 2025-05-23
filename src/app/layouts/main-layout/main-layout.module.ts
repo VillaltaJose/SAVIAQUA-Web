@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
 	{ path: '', component: MainLayoutComponent, children: [
 		{  path: 'pozos', loadChildren: () => import('src/app/pages/pozos/listado-pozos/listado-pozos.module').then(m => m.ListadoPozosModule) },
+		{  path: 'pozos/:id', loadChildren: () => import('src/app/pages/pozos/visualizar-pozo/visualizar-pozo.module').then(m => m.VisualizarPozoModule) },
 	] },
 ];
 

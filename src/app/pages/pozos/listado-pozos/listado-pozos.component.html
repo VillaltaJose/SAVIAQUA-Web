@@ -79,7 +79,13 @@
 						</code>
 					</td>
 					<td>{{ '12/12/2023 10:00' }}</td>
-					<td class="min-size"></td>
+					<td class="min-size">
+						<div class="flex flex-no-wrap gap-10">
+							<a routerLink="/pozos/{{ i }}" nz-button nzType="text">
+								<span nz-icon nzType="eye"></span>
+							</a>
+						</div>
+					</td>
 				</tr>
 			</tbody>
 		</nz-table>
