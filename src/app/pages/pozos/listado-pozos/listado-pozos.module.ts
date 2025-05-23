@@ -9,6 +9,8 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { AgregarPozoModule } from '../agregar-pozo/agregar-pozo.module';
+import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 
 @NgModule({
 	declarations: [ListadoPozosComponent],
@@ -23,6 +25,8 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 		NzTableModule,
 		NzIconModule,
 		NzRadioModule,
+		AgregarPozoModule,
+		NzDrawerModule,
 	],
 })
 export class ListadoPozosModule {}

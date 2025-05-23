@@ -1,0 +1,44 @@
+<div class="w-full h-full flex flex-column flex-no-wrap justify-between">
+	<div class="w-full h-full overflow-auto p-15">
+		<form class="w-full grid gap-15">
+			<div class="grid-col-12">
+				<h4 class="font-bold m-0 w-full">Registrar Pozo</h4>
+			</div>
+
+			<div class="grid-col-12">
+				<p class="display-block m-0 mb-7 font-medium">Junta</p>
+				<nz-select class="w-full">
+					<nz-option *ngFor="let item of [1,2,3]" [nzLabel]="item" [nzValue]="item">
+					</nz-option>
+				</nz-select>
+			</div>
+
+			<div class="grid-col-12">
+				<p class="display-block m-0 mb-7 font-medium">Nombre</p>
+				<input nz-input type="text" class="w-full">
+			</div>
+
+			<div class="grid-col-12">
+				<p class="display-block m-0 mb-7 font-medium">Ubicación</p>
+				<div class="w-full flex flex-no-wrap">
+					<button nz-button class="mr-10" style="width: 7.5rem;">
+						<span nz-icon nzType="aim"></span>
+					</button>
+
+					<input nz-input type="number" placeholder="Latitud" class="w-full">
+					<input nz-input type="number" placeholder="Longitud" class="w-full">
+				</div>
+			</div>
+
+			<div class="grid-col-12">
+				<p class="display-block m-0 mb-7 font-medium">Descripción / Observaciones</p>
+				<textarea nz-input rows="4" class="w-full"></textarea>
+			</div>
+		</form>
+	</div>
+
+	<div class="w-full border-t-1 border-solid border-theme-bluegray-300 p-15 flex gap-15 justify-end">
+		<button nz-button (click)="cerrarDrawer()">Cancelar</button>
+		<button nz-button nzType="primary">Registrar pozo</button>
+	</div>
+</div>
