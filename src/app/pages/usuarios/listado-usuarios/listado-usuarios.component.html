@@ -1,0 +1,69 @@
+<div class="w-full p-20">
+	<div class="w-full flex items-center flex-no-wrap gap-15 justify-between mb-15">
+		<h4 class="display-block m-0 font-bold text-xl">Listado de usuarios</h4>
+
+		<div class="flex items-center flex-no-wrap gap-10">
+			<button nz-button nzType="primary">
+				<span nz-icon nzType="plus"></span>
+				Agregar Usuario
+			</button>
+		</div>
+	</div>
+
+	<form [formGroup]="filtros" class="w-full border-1 border-solid border-theme-bluegray-300 rounded-sm p-10 mb-20 bg-theme-bluegray-100 grid">
+		<div class="grid-col-2">
+			<p class="display-block m-0 mb-7 text-smd font-medium">Junta</p>
+			<nz-select class="w-full" nzAllowClear nzSize="small">
+				<nz-option *ngFor="let item of [1,2,3]" [nzLabel]="item" [nzValue]="item">
+				</nz-option>
+			</nz-select>
+		</div>
+		<div class="grid-col-2 flex items-end">
+			<button nz-button nzType="primary" class="btn-black w-full">Buscar</button>
+		</div>
+	</form>
+
+	<div class="w-full">
+		<nz-table #nzTable
+			[nzData]="[1,2,3,4]"
+			nzSize="small"
+			[nzPageSize]="10">
+			<thead>
+				<tr>
+					<th class="min-size">ID</th>
+					<th>Nombre</th>
+					<th>Rol</th>
+					<th>Junta</th>
+					<th>Fecha Creación</th>
+					<th class="min-size"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let i of nzTable.data">
+					<td class="min-size">123</td>
+					<td>
+						<div class="flex items-center flex-no-wrap">
+							<img class="w-30 h-30 rounded-sm bg-theme-bluegray-300"
+								src="https://dicebear.xpress.vimasistem.com/7.x/initials/svg?seed={{ i }}">
+							<p class="m-0 ml-10">{{ 'Nombre Usuario' }}</p>
+						</div>
+					</td>
+					<td>
+						<code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">
+							Nombre Rol
+						</code>
+					</td>
+					<td>Nombre Junta</td>
+					<td>{{ '12/12/2023 10:00' }}</td>
+					<td class="min-size">
+						<div class="flex flex-no-wrap gap-10">
+							<button nz-button nzType="text">
+								<span nz-icon nzType="edit"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</nz-table>
+	</div>
+</div>
