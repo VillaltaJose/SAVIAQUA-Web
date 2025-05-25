@@ -6,6 +6,12 @@
 	<div class="flex flex-no-wrap items-center gap-15">
 		<input type="text" class="w-full rounded-sm border-0 bg-white-alpha inp-search" placeholder="Buscar...">
 
-		<img src="https://api.dicebear.com/7.x/initials/svg?seed=Savi%20aqua" class="w-30 m-0 h-30 rounded-full">
+		<div class="flex items-center flex-no-wrap gap-10">
+			<p class="display-block m-0 text-white-alpha font-medium" style="text-wrap: nowrap;">
+				{{ session?.nombres | titlecase }} {{ session?.apellidos | titlecase }}
+			</p>
+
+			<img src="https://api.dicebear.com/7.x/initials/svg?seed={{ session?.nombres }}%20{{ session?.apellidos }}" class="w-30 m-0 h-30 rounded-full">
+		</div>
 	</div>
 </div>
