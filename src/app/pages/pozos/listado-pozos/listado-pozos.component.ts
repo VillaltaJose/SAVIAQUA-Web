@@ -5,6 +5,7 @@ import { AgregarPozoComponent } from '../agregar-pozo/agregar-pozo.component';
 import { PozoService } from 'src/app/shared/services/api/pozos/pozo.service';
 import { finalize } from 'rxjs';
 import { Metadata } from 'src/app/models/result';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-listado-pozos',
@@ -39,6 +40,7 @@ export class ListadoPozosComponent implements OnInit {
 	constructor(
 		private _nzDrawerService: NzDrawerService,
 		private _pozoService: PozoService,
+		private _router: Router,
 	) {
 		this.filtros = new FormGroup({
 			codigoJunta: new FormControl(null, []),
@@ -84,5 +86,9 @@ export class ListadoPozosComponent implements OnInit {
 				this.obtenerPozos();
 			}
 		});
+	}
+
+	verPozo(codigo: number) {
+		this._router.navigate(['/pozos', codigo]);
 	}
 }
