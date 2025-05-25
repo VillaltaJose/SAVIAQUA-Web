@@ -49,15 +49,20 @@
 			</nz-select>
 		</div>
 		<div class="grid-col-2 flex items-end">
-			<button nz-button nzType="primary" class="btn-black w-full">Buscar</button>
+			<button nz-button [nzLoading]="loading.pozos" (click)="obtenerPozos()" nzType="primary" class="btn-black w-full">Buscar</button>
 		</div>
 	</form>
 
 	<div *ngIf="visualizacion == 'table'" class="w-full">
 		<nz-table #nzTable
-			[nzData]="[1,1,1,1]"
+			[nzData]="pozos"
+			[nzLoading]="loading.pozos"
 			nzSize="small"
-			[nzPageSize]="10">
+			[nzPageSize]="metadata?.pageSize ?? 15"
+			[nzTotal]="metadata?.totalCount ?? 0"
+			[nzShowPagination]="true"
+			[nzFrontPagination]="false"
+			[nzPageIndex]="(metadata?.currentPage ?? 0) + 1">
 			<thead>
 				<tr>
 					<th class="min-size">ID</th>
@@ -70,15 +75,15 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let i of nzTable.data">
-					<td class="min-size">123</td>
-					<td>Nombre Pozo</td>
-					<td>Nombre Junta</td>
+					<td class="min-size">{{ i.codigo }}</td>
+					<td>{{ i.nombre }}</td>
+					<td>{{ i.junta }}</td>
 					<td>
 						<code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">
-							12.3456789, -98.7654321
+							{{ i.latitude }}, {{ i.longitude }}
 						</code>
 					</td>
-					<td>{{ '12/12/2023 10:00' }}</td>
+					<td>{{ i.fechaCreacion | date:'dd/MM/yyyy HH:mm':'GMT-5' }}</td>
 					<td class="min-size">
 						<div class="flex flex-no-wrap gap-10">
 							<a routerLink="/pozos/{{ i }}" nz-button nzType="text">
@@ -92,8 +97,14 @@
 	</div>
 
 	<div *ngIf="visualizacion == 'map'" class="w-full">
-		<google-map height="400px" width="100%" [center]="center" [zoom]="zoom">
-			<map-marker [position]="markerPosition" [options]="markerOptions"></map-marker>
-		</google-map>
+		<nz-spin [nzTip]="'Cargando pozos...'" [nzSpinning]="loading.pozos">
+			<google-map height="400px" width="100%" [center]="center" [zoom]="zoom">
+				<map-marker *ngFor="let p of pozos"
+					[position]="{
+						lat: p.latitude,
+						lng: p.longitude,
+					}" [options]="markerOptions"></map-marker>
+			</google-map>
+		</nz-spin>
 	</div>
 </div>

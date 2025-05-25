@@ -12,6 +12,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { AgregarPozoModule } from '../agregar-pozo/agregar-pozo.module';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 @NgModule({
 	declarations: [ListadoPozosComponent],
@@ -29,6 +30,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 		AgregarPozoModule,
 		NzDrawerModule,
 		GoogleMapsModule,
+		NzSpinModule,
 	],
 })
 export class ListadoPozosModule {}
