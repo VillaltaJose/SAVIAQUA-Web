@@ -68,7 +68,11 @@
 				<tr *ngFor="let i of nzTable.data">
 					<td class="min-size">{{ i.codigo }}</td>
 					<td>{{ i.nombre }}</td>
-					<td>{{ i.junta }}</td>
+					<td>
+						<nz-tag [nzColor]="i.junta | color" class="font-medium">
+							{{ i.junta }}
+						</nz-tag>
+					</td>
 					<td>
 						<!-- <code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">
 							{{ i.latitude }}, {{ i.longitude }}

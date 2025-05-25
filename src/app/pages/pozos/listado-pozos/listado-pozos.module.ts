@@ -17,6 +17,8 @@ import { SelectProvinciaModule } from 'src/app/shared/components/selects/select-
 import { SelectCiudadModule } from 'src/app/shared/components/selects/select-ciudad/select-ciudad.module';
 import { SelectParroquiaModule } from 'src/app/shared/components/selects/select-parroquia/select-parroquia.module';
 import { SelectJuntaModule } from 'src/app/shared/components/selects/select-junta/select-junta.module';
+import { ColorModule } from 'src/app/shared/pipes/color/color.module';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 @NgModule({
 	declarations: [ListadoPozosComponent],
@@ -39,6 +41,8 @@ import { SelectJuntaModule } from 'src/app/shared/components/selects/select-junt
 		SelectCiudadModule,
 		SelectParroquiaModule,
 		SelectJuntaModule,
+		ColorModule,
+		NzTagModule,
 	],
 })
 export class ListadoPozosModule {}
