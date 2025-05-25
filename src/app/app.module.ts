@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -8,8 +8,12 @@ import { es_ES } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import es from '@angular/common/locales/es';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { AuthInterceptorsService } from './shared/services/interceptors/auth-interceptor.service';
 
 registerLocaleData(es);
 
@@ -22,7 +26,18 @@ registerLocaleData(es);
 		HttpClientModule,
 		BrowserAnimationsModule,
 	],
-	providers: [{ provide: NZ_I18N, useValue: es_ES }],
+	providers: [
+		NzModalService,
+		NzDrawerService,
+		NzMessageService,
+		{ provide: LOCALE_ID, useValue: 'es' },
+		{ provide: NZ_I18N, useValue: es_ES },
+		{
+			provide: HTTP_INTERCEPTORS,
+			useClass: AuthInterceptorsService,
+			multi: true,
+		},
+	],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

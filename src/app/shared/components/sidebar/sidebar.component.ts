@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-// import { AuthService } from '../../services/api/auth/auth.service';
+import { AuthService } from '../../services/api/auth/auth.service';
 
 @Component({
 	selector: 'app-sidebar',
@@ -8,10 +8,10 @@ import { Component } from '@angular/core';
 })
 export class SidebarComponent {
 	constructor(
-		// private _authService: AuthService,
+		private _authService: AuthService,
 	) {}
 
 	logOut() {
-		// this._authService.logOut();
+		this._authService.logOut();
 	}
 }
