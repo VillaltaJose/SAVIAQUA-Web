@@ -79,9 +79,11 @@
 					<td>{{ i.nombre }}</td>
 					<td>{{ i.junta }}</td>
 					<td>
-						<code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">
+						<!-- <code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">
 							{{ i.latitude }}, {{ i.longitude }}
-						</code>
+						</code> -->
+						{{ i.provincia | titlecase }}, {{ i.ciudad | titlecase }},
+						{{ i.parroquia | titlecase }}
 					</td>
 					<td>{{ i.fechaCreacion | date:'dd/MM/yyyy HH:mm':'GMT-5' }}</td>
 					<td class="min-size">
