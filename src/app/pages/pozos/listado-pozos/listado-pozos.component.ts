@@ -36,6 +36,7 @@ export class ListadoPozosComponent implements OnInit {
 		private _pozoService: PozoService,
 	) {
 		this.filtros = new FormGroup({
+			codigoJunta: new FormControl(null, []),
 			codigoProvincia: new FormControl(null, []),
 			codigoCiudad: new FormControl(null, []),
 			codigoParroquia: new FormControl(null, []),

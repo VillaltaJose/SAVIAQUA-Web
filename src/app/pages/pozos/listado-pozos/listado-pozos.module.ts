@@ -16,6 +16,7 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { SelectProvinciaModule } from 'src/app/shared/components/selects/select-provincia/select-provincia.module';
 import { SelectCiudadModule } from 'src/app/shared/components/selects/select-ciudad/select-ciudad.module';
 import { SelectParroquiaModule } from 'src/app/shared/components/selects/select-parroquia/select-parroquia.module';
+import { SelectJuntaModule } from 'src/app/shared/components/selects/select-junta/select-junta.module';
 
 @NgModule({
 	declarations: [ListadoPozosComponent],
@@ -37,6 +38,7 @@ import { SelectParroquiaModule } from 'src/app/shared/components/selects/select-
 		SelectProvinciaModule,
 		SelectCiudadModule,
 		SelectParroquiaModule,
+		SelectJuntaModule,
 	],
 })
 export class ListadoPozosModule {}

@@ -1,27 +1,27 @@
 import { AfterViewInit, Component, forwardRef, Input } from '@angular/core';
-import { CommonSelect } from '../common-select';
-import { finalize } from 'rxjs';
-import { LugarService } from 'src/app/shared/services/api/lugares/lugar.service';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonSelect } from '../common-select';
+import { JuntaService } from 'src/app/shared/services/api/juntas/junta.service';
+import { finalize } from 'rxjs';
 
 @Component({
-	selector: 'app-select-provincia',
-	templateUrl: './select-provincia.component.html',
-	styleUrls: ['./select-provincia.component.scss'],
+	selector: 'app-select-junta',
+	templateUrl: './select-junta.component.html',
+	styleUrls: ['./select-junta.component.scss'],
 	providers: [{
 		provide: NG_VALUE_ACCESSOR,
 		multi: true,
-		useExisting: forwardRef(() => SelectProvinciaComponent)
-	}],
+		useExisting: forwardRef(() => SelectJuntaComponent)
+	}]
 })
-export class SelectProvinciaComponent extends CommonSelect<number> implements AfterViewInit {
+export class SelectJuntaComponent extends CommonSelect<number> implements AfterViewInit {
 	@Input('showNull') mostrarNulo: boolean = false;
 	data: any[] = [];
 	isLoading: boolean = true;
 	@Input('nzSize') size: 'default' | 'small' | 'large' = 'default';
 
 	constructor(
-		private _lugarService: LugarService,
+		private _juntaService: JuntaService,
 	) {
 		super();
 	}
@@ -33,12 +33,11 @@ export class SelectProvinciaComponent extends CommonSelect<number> implements Af
 	obtenerDatos() {
 		this.isLoading = true
 
-		const subscription = this._lugarService.obtenerProvincias()
+		const subscription = this._juntaService.obtenerJuntasMin()
 		.pipe(finalize(() => {
 			this.isLoading = false
 			subscription.unsubscribe()
 		}))
 		.subscribe(api => this.data = api.value);
 	}
-
 }

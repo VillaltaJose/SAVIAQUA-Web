@@ -22,10 +22,7 @@
 	<form [formGroup]="filtros" class="w-full border-1 border-solid border-theme-bluegray-300 rounded-sm p-10 mb-20 bg-theme-bluegray-100 grid">
 		<div class="grid-col-2">
 			<p class="display-block m-0 mb-7 text-smd font-medium">Junta</p>
-			<nz-select class="w-full" nzAllowClear nzSize="small">
-				<nz-option *ngFor="let item of [1,2,3]" [nzLabel]="item" [nzValue]="item">
-				</nz-option>
-			</nz-select>
+			<app-select-junta formControlName="codigoJunta" class="w-full"></app-select-junta>
 		</div>
 		<div class="grid-col-2">
 			<p class="display-block m-0 mb-7 text-smd font-medium">Provincia</p>
