@@ -29,24 +29,18 @@
 		</div>
 		<div class="grid-col-2">
 			<p class="display-block m-0 mb-7 text-smd font-medium">Provincia</p>
-			<nz-select class="w-full" nzAllowClear nzSize="small">
-				<nz-option *ngFor="let item of [1,2,3]" [nzLabel]="item" [nzValue]="item">
-				</nz-option>
-			</nz-select>
+			<app-select-provincia formControlName="codigoProvincia" class="w-full"></app-select-provincia>
 		</div>
 		<div class="grid-col-2">
 			<p class="display-block m-0 mb-7 text-smd font-medium">Ciudad</p>
-			<nz-select class="w-full" nzAllowClear nzSize="small">
-				<nz-option *ngFor="let item of [1,2,3]" [nzLabel]="item" [nzValue]="item">
-				</nz-option>
-			</nz-select>
+			<app-select-ciudad formControlName="codigoCiudad" class="w-full" [codigoProvincia]="filtros.get('codigoProvincia')?.value"></app-select-ciudad>
 		</div>
 		<div class="grid-col-2">
 			<p class="display-block m-0 mb-7 text-smd font-medium">Parroquia</p>
-			<nz-select class="w-full" nzAllowClear nzSize="small">
-				<nz-option *ngFor="let item of [1,2,3]" [nzLabel]="item" [nzValue]="item">
-				</nz-option>
-			</nz-select>
+			<app-select-parroquia formControlName="codigoParroquia" class="w-full"
+				[codigoProvincia]="filtros.get('codigoProvincia')?.value"
+				[codigoCiudad]="filtros.get('codigoCiudad')?.value"
+				></app-select-parroquia>
 		</div>
 		<div class="grid-col-2 flex items-end">
 			<button nz-button [nzLoading]="loading.pozos" (click)="obtenerPozos()" nzType="primary" class="btn-black w-full">Buscar</button>

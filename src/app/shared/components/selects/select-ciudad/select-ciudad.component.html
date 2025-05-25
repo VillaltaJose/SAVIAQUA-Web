@@ -1,0 +1,21 @@
+<nz-select
+	[nzSize]="size"
+	class="w-full"
+	nzShowSearch
+	autocomplete="off"
+	[nzAllowClear]="!isDisabled && !mostrarNulo"
+	[nzPlaceHolder]="placeholder"
+	[disabled]="isDisabled"
+	[ngModel]="value"
+	(ngModelChange)="change($event)"
+	[nzLoading]="isLoading">
+
+	<ng-container *ngIf="!isLoading">
+		<nz-option *ngIf="mostrarNulo && data.length > 0" nzLabel="Todos" [nzValue]="null" selected></nz-option>
+		<ng-container *ngFor="let d of data">
+			<nz-option [nzLabel]="d.nombre" [nzValue]="d.codigo"></nz-option>
+		</ng-container>
+	</ng-container>
+
+	<nz-option *ngIf="isLoading" nzLabel="Cargando..." [nzValue]="null" nzDisabled></nz-option>
+</nz-select>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { AgregarPozoComponent } from '../agregar-pozo/agregar-pozo.component';
 import { PozoService } from 'src/app/shared/services/api/pozos/pozo.service';
@@ -35,7 +35,13 @@ export class ListadoPozosComponent implements OnInit {
 		private _nzDrawerService: NzDrawerService,
 		private _pozoService: PozoService,
 	) {
-		this.filtros = new FormGroup({});
+		this.filtros = new FormGroup({
+			codigoProvincia: new FormControl(null, []),
+			codigoCiudad: new FormControl(null, []),
+			codigoParroquia: new FormControl(null, []),
+			pageSize: new FormControl(15, [Validators.required]),
+			pageNumber: new FormControl(1, [Validators.required]),
+		});
 	}
 
 	ngOnInit(): void {
@@ -45,7 +51,9 @@ export class ListadoPozosComponent implements OnInit {
 	obtenerPozos() {
 		this.loading.pozos = true;
 
-		this._pozoService.obtenerPozos({})
+		const filtros = this.filtros.getRawValue();
+
+		this._pozoService.obtenerPozos(filtros)
 		.pipe(finalize(() => this.loading.pozos = false))
 		.subscribe(api => {
 			this.pozos = api.value;

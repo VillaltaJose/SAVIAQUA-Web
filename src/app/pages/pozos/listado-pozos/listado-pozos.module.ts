@@ -13,6 +13,9 @@ import { AgregarPozoModule } from '../agregar-pozo/agregar-pozo.module';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { GoogleMapsModule } from '@angular/google-maps';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { SelectProvinciaModule } from 'src/app/shared/components/selects/select-provincia/select-provincia.module';
+import { SelectCiudadModule } from 'src/app/shared/components/selects/select-ciudad/select-ciudad.module';
+import { SelectParroquiaModule } from 'src/app/shared/components/selects/select-parroquia/select-parroquia.module';
 
 @NgModule({
 	declarations: [ListadoPozosComponent],
@@ -31,6 +34,9 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 		NzDrawerModule,
 		GoogleMapsModule,
 		NzSpinModule,
+		SelectProvinciaModule,
+		SelectCiudadModule,
+		SelectParroquiaModule,
 	],
 })
 export class ListadoPozosModule {}
