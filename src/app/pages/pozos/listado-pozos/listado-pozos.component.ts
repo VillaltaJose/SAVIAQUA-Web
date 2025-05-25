@@ -26,6 +26,11 @@ export class ListadoPozosComponent implements OnInit {
 	zoom = 13;
 	center: google.maps.LatLngLiteral = { lat: -2.9006, lng: -79.0045 };
 	markerOptions: google.maps.MarkerOptions = { draggable: false };
+	markerIcon: google.maps.Icon = {
+		url: 'assets/icons/icono-pozo.png',
+		scaledSize: new google.maps.Size(34, 34),
+		anchor: new google.maps.Point(17, 34),
+	};
 
 	loading = {
 		pozos: true,
