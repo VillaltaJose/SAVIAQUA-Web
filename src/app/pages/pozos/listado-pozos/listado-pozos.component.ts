@@ -65,13 +65,19 @@ export class ListadoPozosComponent implements OnInit {
 	}
 
 	abrirDrawerNuevoPozo() {
-		this._nzDrawerService.create({
+		const drawer = this._nzDrawerService.create({
 			nzContent: AgregarPozoComponent,
 			nzPlacement: 'right',
 			nzWidth: '50rem',
 			nzWrapClassName: 'full-screen-drawer',
 			nzCloseOnNavigation: true,
 			nzClosable: false,
+		});
+
+		drawer.afterClose.subscribe((data) => {
+			if (data) {
+				this.obtenerPozos();
+			}
 		});
 	}
 }

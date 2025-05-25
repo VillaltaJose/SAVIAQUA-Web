@@ -15,4 +15,8 @@ export class PozoService {
 			params: filters as any,
 		});
 	}
+
+	crearPozo(pozo: any) {
+		return this._http.post<Result<number>>('pozos', pozo);
+	}
 }

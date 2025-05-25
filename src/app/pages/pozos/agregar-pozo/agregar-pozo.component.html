@@ -1,44 +1,83 @@
 <div class="w-full h-full flex flex-column flex-no-wrap justify-between">
 	<div class="w-full h-full overflow-auto p-15">
-		<form class="w-full grid gap-15">
+		<form [formGroup]="form" class="w-full grid gap-15">
 			<div class="grid-col-12">
 				<h4 class="font-bold m-0 w-full">Registrar Pozo</h4>
 			</div>
 
 			<div class="grid-col-12">
 				<p class="display-block m-0 mb-7 font-medium">Junta</p>
-				<nz-select class="w-full">
-					<nz-option *ngFor="let item of [1,2,3]" [nzLabel]="item" [nzValue]="item">
-					</nz-option>
-				</nz-select>
+				<app-select-junta formControlName="codigoJunta" class="w-full"></app-select-junta>
 			</div>
 
 			<div class="grid-col-12">
 				<p class="display-block m-0 mb-7 font-medium">Nombre</p>
-				<input nz-input type="text" class="w-full">
+				<input nz-input formControlName="nombre" type="text" class="w-full">
+			</div>
+
+			<div class="grid-col-6">
+				<p class="display-block m-0 mb-7 font-medium">Provincia</p>
+				<app-select-provincia formControlName="codigoProvincia" class="w-full"></app-select-provincia>
+			</div>
+
+			<div class="grid-col-6">
+				<p class="display-block m-0 mb-7 font-medium">Ciudad</p>
+				<app-select-ciudad formControlName="codigoCiudad"
+					[codigoProvincia]="form.get('codigoProvincia')?.value"
+					class="w-full"></app-select-ciudad>
+			</div>
+
+			<div class="grid-col-12">
+				<p class="display-block m-0 mb-7 font-medium">Parroquia</p>
+				<app-select-parroquia formControlName="codigoParroquia"
+					[codigoProvincia]="form.get('codigoProvincia')?.value"
+					[codigoCiudad]="form.get('codigoCiudad')?.value"
+					class="w-full"></app-select-parroquia>
 			</div>
 
 			<div class="grid-col-12">
 				<p class="display-block m-0 mb-7 font-medium">Ubicación</p>
 				<div class="w-full flex flex-no-wrap">
-					<button nz-button class="mr-10" style="width: 7.5rem;">
+					<button (click)="showMap = !showMap" nz-button class="mr-10" style="width: 4rem;">
 						<span nz-icon nzType="aim"></span>
 					</button>
 
-					<input nz-input type="number" placeholder="Latitud" class="w-full">
-					<input nz-input type="number" placeholder="Longitud" class="w-full">
+					<div *ngIf="!showMap" class="flex items-center flex-no-wrap gap-10">
+						<input nz-input type="number" formControlName="latitude" placeholder="Latitud" class="w-full">
+						<input nz-input type="number" formControlName="longitude" placeholder="Longitud" class="w-full">
+					</div>
+
+					<input [ngClass]="{'display-none': !showMap}" nz-input #searchBox type="text" class="w-full mb-12">
+				</div>
+
+				<div *ngIf="showMap" class="w-full mt-6 rounded-sm border-1 border-solid border-theme-bluegray-400 overflow-hidden">
+					<google-map
+						height="27rem"
+						width="100%"
+						[center]="center"
+						[zoom]="zoom"
+						(mapClick)="agregarMarcador($event)">
+
+						<map-marker
+							*ngIf="form.get('latitude')?.value && form.get('longitude')?.value"
+							[position]="{
+								lat: form.get('latitude')?.value,
+								lng: form.get('longitude')?.value
+							}">
+							</map-marker>
+					</google-map>
 				</div>
 			</div>
 
 			<div class="grid-col-12">
 				<p class="display-block m-0 mb-7 font-medium">Descripción / Observaciones</p>
-				<textarea nz-input rows="4" class="w-full"></textarea>
+				<textarea nz-input rows="4" formControlName="observaciones" class="w-full"></textarea>
 			</div>
 		</form>
 	</div>
 
 	<div class="w-full border-t-1 border-solid border-theme-bluegray-300 p-15 flex gap-15 justify-end">
-		<button nz-button (click)="cerrarDrawer()">Cancelar</button>
-		<button nz-button nzType="primary">Registrar pozo</button>
+		<button nz-button [disabled]="loading.crear" (click)="cerrarDrawer()">Cancelar</button>
+		<button nz-button [nzLoading]="loading.crear" (click)="crearPozo()" nzType="primary">Registrar pozo</button>
 	</div>
 </div>
