@@ -1,0 +1,56 @@
+<div class="w-full p-20 mx-auto" style="max-width: 110rem;">
+	<div class="w-full flex items-center flex-no-wrap gap-15 justify-between mb-15">
+		<h4 class="display-block m-0 font-bold text-xl">Listado de roles</h4>
+
+		<div class="flex items-center flex-no-wrap gap-10">
+			<button nz-button [nzLoading]="loading.roles" (click)="obtenerRoles()">
+				<span nz-icon nzType="reload"></span>
+				Consultar
+			</button>
+			<button nz-button nzType="primary">
+				<span nz-icon nzType="plus"></span>
+				Agregar Rol
+			</button>
+		</div>
+	</div>
+
+	<div class="w-full">
+		<nz-table #nzTable
+			[nzData]="roles"
+			nzSize="small"
+			[nzLoading]="loading.roles"
+			[nzPageSize]="10">
+			<thead>
+				<tr>
+					<th class="min-size">ID</th>
+					<th>Nombre</th>
+					<th>Estado</th>
+					<th>Fecha Creación</th>
+					<th class="min-size"></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let i of nzTable.data">
+					<td class="min-size">{{ i.codigo }}</td>
+					<td>
+						{{ i.nombre }}
+					</td>
+					<td>
+						<div class="flex items-center flex-no-wrap">
+							<div style="width: 10px; height: 10px;" [style.background]="i.activo ? '#3bca80' : '#88746c'" class="mr-7 rounded-full"></div>
+							<span class="text-theme-black-100 font-medium text-sm m-0">{{ i.activo ? 'Activo' : 'Inactivo' }}</span>
+						</div>
+					</td>
+					<td>{{ i.fechaCreacion | date:'dd/MM/yyyy HH:mm':'GMT-5' }}</td>
+					<td class="min-size">
+						<div class="flex flex-no-wrap gap-10">
+							<button nz-button nzType="text">
+								<span nz-icon nzType="edit"></span>
+							</button>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</nz-table>
+	</div>
+</div>
