@@ -73,6 +73,14 @@
 				<p class="display-block m-0 mb-7 font-medium">Descripción / Observaciones</p>
 				<textarea nz-input rows="4" formControlName="observaciones" class="w-full"></textarea>
 			</div>
+
+			<ng-container *ngIf="errors.length > 0">
+				<div class="grid-col-12 border-1 rounded-sm border-solid border-red-700 bg-redgray px-10 py-7">
+					<p *ngFor="let e of errors" class="display-block m-0 text-red-800">
+						{{ e.code }} {{ e.text }}
+					</p>
+				</div>
+			</ng-container>
 		</form>
 	</div>
 
