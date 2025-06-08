@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { finalize } from 'rxjs';
 import { RolService } from 'src/app/shared/services/api/roles/rol.service';
+import { EditarRolComponent } from '../editar-rol/editar-rol.component';
 
 @Component({
 	selector: 'app-listado-roles',
@@ -16,6 +18,7 @@ export class ListadoRolesComponent implements OnInit {
 
 	constructor(
 		private _rolService: RolService,
+		private _nzDrawerService: NzDrawerService,
 	) { }
 
 	ngOnInit(): void {
@@ -29,6 +32,26 @@ export class ListadoRolesComponent implements OnInit {
 		.pipe(finalize(() => this.loading.roles = false))
 		.subscribe(api => {
 			this.roles = api.value;
+		});
+	}
+
+	abrirDrawerEditarRol(codigo: number) {
+		const drawer = this._nzDrawerService.create({
+			nzContent: EditarRolComponent,
+			nzPlacement: 'right',
+			nzWidth: '50rem',
+			nzWrapClassName: 'full-screen-drawer',
+			nzCloseOnNavigation: true,
+			nzClosable: false,
+			nzContentParams: {
+				codigo: codigo,
+			},
+		});
+
+		drawer.afterClose.subscribe((data) => {
+			if (!data) return;
+
+			this.obtenerRoles();
 		});
 	}
 }

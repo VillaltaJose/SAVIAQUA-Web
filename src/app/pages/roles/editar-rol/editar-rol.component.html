@@ -1,0 +1,56 @@
+<div class="w-full h-full flex flex-column flex-no-wrap justify-between">
+	<div class="w-full h-full overflow-auto p-15">
+		<form [formGroup]="form" class="w-full grid overflow-auto pb-10">
+			<div class="grid-col-12">
+				<h4 class="font-bold m-0 w-full">Editar Rol</h4>
+			</div>
+
+			<div class="grid-col-11">
+				<p class="display-block m-0 mb-7 font-medium">Nombre</p>
+				<input nz-input formControlName="nombre" type="text" class="w-full">
+			</div>
+
+			<div class="grid-col-1">
+				<p class="display-block m-0 mb-7 font-medium">Activo</p>
+				<nz-switch formControlName="activo"></nz-switch>
+			</div>
+
+			<div class="grid-col-12 flex items-center flex-no-wrap gap-15">
+				<h4 class="font-bold text-md display-block m-0">Permisos</h4>
+
+				<p (click)="toggleChecks()" class="display-block px-7 m-0 cursor-pointer py-5 text-theme-bluegray-500 hover:bg-theme-bluegray-100 text-sm"
+					style="user-select: none;">
+					{{ form.get('permissions')?.value.length > 0 ? 'Deseleccionar' : 'Seleccionar' }} todos
+				</p>
+			</div>
+
+			<div class="grid-col-12" style="margin-top: -2rem;">
+				<nz-checkbox-wrapper>
+					<div>
+						<ng-container *ngFor="let p of permisos; let i = index">
+							<ng-container *ngIf="i == 0 || (permisos[i - 1].codigoCategoria != p.codigoCategoria)">
+								<div class="w-full bg-white py-10 sticky left-0 top-0" style="z-index: 10;">
+									<p class="display-block m-0 font-medium text-base">{{ p.categoria }}</p>
+								</div>
+							</ng-container>
+
+							<div class="w-full display-block mb-10 pl-12">
+								<label nz-checkbox [nzValue]="p.permissionId" [ngModelOptions]="{standalone: true}" [(ngModel)]="p.checked" (ngModelChange)="colocarPermisos()">
+									<p class="display-block m-0 font-medium">
+										{{ p.nombre }}
+									</p>
+									<p class="display-block m-0 text-gray-900 text-sm">{{ p.descripcion }}</p>
+								</label>
+							</div>
+						</ng-container>
+					</div>
+				</nz-checkbox-wrapper>
+			</div>
+		</form>
+	</div>
+
+	<div class="w-full border-t-1 border-solid border-theme-bluegray-300 p-15 flex gap-15 justify-end">
+		<button nz-button [disabled]="loading.guardar" (click)="cerrarDrawer()">Cancelar</button>
+		<button nz-button [nzLoading]="loading.guardar" nzType="primary">Registrar pozo</button>
+	</div>
+</div>
