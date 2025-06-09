@@ -7,12 +7,12 @@
 
 			<div class="grid-col-6">
 				<p class="display-block m-0 mb-7 font-medium">Nombre</p>
-				<input nz-input formControlName="nombre" type="text" class="w-full">
+				<input nz-input formControlName="nombres" type="text" class="w-full">
 			</div>
 
 			<div class="grid-col-6">
 				<p class="display-block m-0 mb-7 font-medium">Apellido</p>
-				<input nz-input formControlName="apellido" type="text" class="w-full">
+				<input nz-input formControlName="apellidos" type="text" class="w-full">
 			</div>
 
 			<div class="grid-col-12">
@@ -29,11 +29,19 @@
 				<p class="display-block m-0 mb-7 font-medium">Junta</p>
 				<app-select-junta class="w-full" formControlName="codigoJunta"></app-select-junta>
 			</div>
+
+			<ng-container *ngIf="errors.length > 0">
+				<div class="grid-col-12 border-1 rounded-sm border-solid border-red-700 bg-redgray px-10 py-7">
+					<p *ngFor="let e of errors" class="display-block m-0 text-red-800">
+						{{ e.code }} {{ e.text }}
+					</p>
+				</div>
+			</ng-container>
 		</form>
 	</div>
 
 	<div class="w-full border-t-1 border-solid border-theme-bluegray-300 p-15 flex gap-15 justify-end">
 		<button nz-button [disabled]="loading.guardar" (click)="cerrarDrawer()">Cancelar</button>
-		<button nz-button [nzLoading]="loading.guardar" nzType="primary">Registrar usuario</button>
+		<button nz-button [nzLoading]="loading.guardar" (click)="guardar()" nzType="primary">Registrar usuario</button>
 	</div>
 </div>

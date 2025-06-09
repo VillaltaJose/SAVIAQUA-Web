@@ -10,6 +10,10 @@ export class UsuarioService {
 		private _http: HttpClient,
 	) {}
 
+	registrarNuevoUsuario(usuario: any) {
+		return this._http.post<Result<any>>('usuarios', usuario);
+	}
+
 	obtenerUsuarios(filtros: any) {
 		return this._http.get<Result<any[]>>('usuarios', {
 			params: { ...filtros },

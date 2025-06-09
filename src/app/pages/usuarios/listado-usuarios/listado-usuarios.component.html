@@ -30,6 +30,7 @@
 				<tr>
 					<th class="min-size">ID</th>
 					<th>Nombre</th>
+					<th>Correo</th>
 					<th>Rol</th>
 					<th>Junta</th>
 					<th>Fecha Creación</th>
@@ -47,6 +48,9 @@
 								{{ i.nombres | titlecase }} {{ i.apellidos | titlecase }}
 							</p>
 						</div>
+					</td>
+					<td>
+						{{ i.correo }}
 					</td>
 					<td>
 						<code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">

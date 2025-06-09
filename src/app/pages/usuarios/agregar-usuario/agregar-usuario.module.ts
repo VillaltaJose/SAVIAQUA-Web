@@ -10,6 +10,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { SelectRolModule } from 'src/app/shared/components/selects/select-rol/select-rol.module';
 import { SelectJuntaModule } from 'src/app/shared/components/selects/select-junta/select-junta.module';
+import { NzModalModule } from 'ng-zorro-antd/modal';
 
 @NgModule({
 	declarations: [AgregarUsuarioComponent],
@@ -26,6 +27,7 @@ import { SelectJuntaModule } from 'src/app/shared/components/selects/select-junt
 		NzSwitchModule,
 		SelectRolModule,
 		SelectJuntaModule,
+		NzModalModule,
 	],
 })
 export class AgregarUsuarioModule {}
