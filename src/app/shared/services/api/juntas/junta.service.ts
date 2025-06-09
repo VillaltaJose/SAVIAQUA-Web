@@ -13,4 +13,13 @@ export class JuntaService {
 	obtenerJuntasMin() {
 		return this._http.get<Result<any[]>>(`juntas?minified=true`);
 	}
+
+	obtenerJuntas(filtros: any) {
+		return this._http.get<Result<any[]>>(`juntas`, {
+			params: {
+				minified: false,
+				...filtros,
+			}
+		});
+	}
 }
