@@ -5,6 +5,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { finalize } from 'rxjs';
 import { Metadata } from 'src/app/models/result';
 import { JuntaService } from 'src/app/shared/services/api/juntas/junta.service';
+import { AgregarJuntaComponent } from '../agregar-junta/agregar-junta.component';
 
 @Component({
 	selector: 'app-listado-juntas',
@@ -70,20 +71,20 @@ export class ListadoJuntasComponent {
 	}
 
 	abrirDrawerNuevoPozo() {
-		// const drawer = this._nzDrawerService.create({
-		// 	nzContent: AgregarPozoComponent,
-		// 	nzPlacement: 'right',
-		// 	nzWidth: '50rem',
-		// 	nzWrapClassName: 'full-screen-drawer',
-		// 	nzCloseOnNavigation: true,
-		// 	nzClosable: false,
-		// });
+		const drawer = this._nzDrawerService.create({
+			nzContent: AgregarJuntaComponent,
+			nzPlacement: 'right',
+			nzWidth: '50rem',
+			nzWrapClassName: 'full-screen-drawer',
+			nzCloseOnNavigation: true,
+			nzClosable: false,
+		});
 
-		// drawer.afterClose.subscribe((data) => {
-		// 	if (data) {
-		// 		this.obtenerPozos();
-		// 	}
-		// });
+		drawer.afterClose.subscribe((data) => {
+			if (data) {
+				this.obtenerJuntas();
+			}
+		});
 	}
 
 	verPozos(codigo: number) {

@@ -22,4 +22,8 @@ export class JuntaService {
 			}
 		});
 	}
+
+	crearJunta(junta: any) {
+		return this._http.post<Result<number>>('juntas', junta);
+	}
 }

@@ -17,6 +17,7 @@ import { SelectCiudadModule } from 'src/app/shared/components/selects/select-ciu
 import { SelectParroquiaModule } from 'src/app/shared/components/selects/select-parroquia/select-parroquia.module';
 import { SelectProvinciaModule } from 'src/app/shared/components/selects/select-provincia/select-provincia.module';
 import { ColorModule } from 'src/app/shared/pipes/color/color.module';
+import { AgregarJuntaModule } from '../agregar-junta/agregar-junta.module';
 
 @NgModule({
 	declarations: [ListadoJuntasComponent],
@@ -39,6 +40,7 @@ import { ColorModule } from 'src/app/shared/pipes/color/color.module';
 		SelectParroquiaModule,
 		ColorModule,
 		NzTagModule,
+		AgregarJuntaModule,
 	],
 })
 export class ListadoJuntasModule {}
