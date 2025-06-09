@@ -3,7 +3,7 @@
 		<h4 class="display-block m-0 font-bold text-xl">Listado de usuarios</h4>
 
 		<div class="flex items-center flex-no-wrap gap-10">
-			<button nz-button nzType="primary">
+			<button (click)="abrirDrawerNuevoUsuario()" nz-button nzType="primary">
 				<span nz-icon nzType="plus"></span>
 				Agregar Usuario
 			</button>
@@ -13,20 +13,18 @@
 	<form [formGroup]="filtros" class="w-full border-1 border-solid border-theme-bluegray-300 rounded-sm p-10 mb-20 bg-theme-bluegray-100 grid">
 		<div class="grid-col-2">
 			<p class="display-block m-0 mb-7 text-smd font-medium">Junta</p>
-			<nz-select class="w-full" nzAllowClear nzSize="small">
-				<nz-option *ngFor="let item of [1,2,3]" [nzLabel]="item" [nzValue]="item">
-				</nz-option>
-			</nz-select>
+			<app-select-junta class="w-full" formControlName="codigoJunta"></app-select-junta>
 		</div>
 		<div class="grid-col-2 flex items-end">
-			<button nz-button nzType="primary" class="btn-black w-full">Buscar</button>
+			<button nz-button nzType="primary" (click)="obtenerUsuarios()" [nzLoading]="loading.usuarios" class="btn-black w-full">Buscar</button>
 		</div>
 	</form>
 
 	<div class="w-full">
 		<nz-table #nzTable
-			[nzData]="[1,2,3,4]"
+			[nzData]="usuarios"
 			nzSize="small"
+			[nzLoading]="loading.usuarios"
 			[nzPageSize]="10">
 			<thead>
 				<tr>
@@ -40,21 +38,23 @@
 			</thead>
 			<tbody>
 				<tr *ngFor="let i of nzTable.data">
-					<td class="min-size">123</td>
+					<td class="min-size">{{ i.codigo }}</td>
 					<td>
 						<div class="flex items-center flex-no-wrap">
 							<img class="w-30 h-30 rounded-sm bg-theme-bluegray-300"
-								src="https://dicebear.xpress.vimasistem.com/7.x/initials/svg?seed={{ i }}">
-							<p class="m-0 ml-10">{{ 'Nombre Usuario' }}</p>
+								src="https://api.dicebear.com/7.x/initials/svg?seed={{ i.nombres }} {{ i.apellidos }}">
+							<p class="m-0 ml-10">
+								{{ i.nombres | titlecase }} {{ i.apellidos | titlecase }}
+							</p>
 						</div>
 					</td>
 					<td>
 						<code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">
-							Nombre Rol
+							{{ i.rol }}
 						</code>
 					</td>
-					<td>Nombre Junta</td>
-					<td>{{ '12/12/2023 10:00' }}</td>
+					<td>{{ i.junta }}</td>
+					<td>{{ i.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</td>
 					<td class="min-size">
 						<div class="flex flex-no-wrap gap-10">
 							<button nz-button nzType="text">

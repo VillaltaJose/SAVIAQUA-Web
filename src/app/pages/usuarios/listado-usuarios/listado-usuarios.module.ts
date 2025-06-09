@@ -7,6 +7,8 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { AgregarUsuarioModule } from '../agregar-usuario/agregar-usuario.module';
+import { SelectJuntaModule } from 'src/app/shared/components/selects/select-junta/select-junta.module';
 
 @NgModule({
 	declarations: [ListadoUsuariosComponent],
@@ -19,6 +21,8 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 		NzTableModule,
 		NzSelectModule,
 		NzIconModule,
+		AgregarUsuarioModule,
+		SelectJuntaModule,
 	],
 })
 export class ListadoUsuariosModule {}
