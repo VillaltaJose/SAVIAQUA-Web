@@ -12,6 +12,7 @@ const routes: Routes = [
 		{  path: 'pozos/:id', loadChildren: () => import('src/app/pages/pozos/visualizar-pozo/visualizar-pozo.module').then(m => m.VisualizarPozoModule) },
 		{  path: 'usuarios', loadChildren: () => import('src/app/pages/usuarios/listado-usuarios/listado-usuarios.module').then(m => m.ListadoUsuariosModule) },
 		{  path: 'roles', loadChildren: () => import('src/app/pages/roles/listado-roles/listado-roles.module').then(m => m.ListadoRolesModule) },
+		{  path: 'perfil', loadChildren: () => import('src/app/pages/perfil/perfil.module').then(m => m.PerfilModule) },
 	] },
 ];
 

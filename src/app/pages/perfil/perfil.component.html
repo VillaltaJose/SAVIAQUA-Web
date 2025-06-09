@@ -1,0 +1,116 @@
+<div class="w-full p-20 mx-auto" style="max-width: 80rem;">
+	<div class="w-full flex items-center flex-no-wrap gap-15 justify-between mb-15">
+		<h4 class="display-block m-0 font-bold text-xl">Mi Perfil</h4>
+
+		<div class="flex items-center flex-no-wrap gap-10">
+			<button nz-button [nzLoading]="loading.obtener" (click)="obtenerPerfil()">
+				<span nz-icon nzType="reload"></span>
+			</button>
+		</div>
+	</div>
+
+	<form [formGroup]="formPerfil" class="w-full grid mb-20 pb-20 border-b-1 border-solid border-theme-bluegray-300">
+		<div class="grid-col-12">
+			<h5 class="font-medium text-base display-block m-0 text-theme-black-200 mb-7">Información básica</h5>
+			<p class="display-block m-0 text-sm text-gray-800 text-theme-bluegray-500">
+				Información básica del usuario, recuerda que esta información es visible para el personal y de tu equipo de trabajo.
+			</p>
+		</div>
+
+		<div class="grid-col-6">
+			<p class="display-block m-0 mb-7">
+				Nombres
+			</p>
+			<input nz-input formControlName="nombres" type="text" class="w-full">
+		</div>
+
+		<div class="grid-col-6">
+			<p class="display-block m-0 mb-7">
+				Apellidos
+			</p>
+			<input nz-input formControlName="apellidos" type="text" class="w-full">
+		</div>
+
+		<div class="grid-col-12">
+			<p class="display-block m-0 mb-7">
+				Correo electrónico
+			</p>
+			<input nz-input formControlName="correo" type="email" class="w-full">
+		</div>
+
+		<div class="grid-col-6">
+			<p class="display-block m-0 mb-7">
+				Junta
+			</p>
+			<input nz-input formControlName="junta" type="text" class="w-full">
+		</div>
+
+		<div class="grid-col-6">
+			<p class="display-block m-0 mb-7">
+				Rol
+			</p>
+			<input nz-input formControlName="rol" type="text" class="w-full">
+		</div>
+
+		<ng-container *ngIf="errores.perfil.length > 0">
+			<div class="grid-col-12 border-1 rounded-sm border-solid border-red-700 bg-redgray px-10 py-7">
+				<p *ngFor="let e of errores.perfil" class="display-block m-0 text-red-800">
+					{{ e.code }} {{ e.text }}
+				</p>
+			</div>
+		</ng-container>
+
+		<div class="grid-col-12">
+			<button nz-button nzType="primary" (click)="actualizarPerfil()" [disabled]="loading.actualizar" [nzLoading]="loading.actualizar">Guardar cambios</button>
+		</div>
+	</form>
+
+	<form [formGroup]="formClave" class="w-full grid mb-20 pb-15">
+		<div class="grid-col-12">
+			<h5 class="font-medium text-base display-block m-0 text-theme-black-200">Cambiar contraseña</h5>
+		</div>
+
+		<ng-container *ngIf="errores.clave.length > 0">
+			<div class="grid-col-12 border-1 rounded-sm border-solid border-red-700 bg-redgray px-10 py-7">
+				<p *ngFor="let e of errores.clave" class="display-block m-0 text-red-800">
+					{{ e.code }} {{ e.text }}
+				</p>
+			</div>
+		</ng-container>
+
+		<div class="grid-col-6">
+			<div class="w-full mb-15">
+				<p class="display-block m-0 mb-7">Contraseña anterior</p>
+				<input nz-input formControlName="actual" type="password" class="w-full">
+			</div>
+
+			<div class="w-full mb-15">
+				<p class="display-block m-0 mb-7">Nueva Contraseña</p>
+				<input nz-input formControlName="nueva" type="password" class="w-full">
+			</div>
+
+			<div class="w-full mb-15">
+				<p class="display-block m-0 mb-7">Repita su nueva contraseña</p>
+				<input nz-input formControlName="confirmar" type="password" class="w-full">
+			</div>
+
+			<button (click)="actualizarClave()" [nzLoading]="loading.clave" nz-button nzType="primary">Cambiar contraseña</button>
+		</div>
+
+		<div class="grid-col-6">
+			<p class="display-block m-0 mb-7">
+				La nueva contraseña debe contener:
+			</p>
+
+			<div class="w-full border-1 border-solid border-theme-bluegray-400 bg-theme-bluegray-100 px-12 py-10 rounded-sm">
+				<ng-container *ngFor="let r of requisitosClave; let last = last">
+					<p class="display-block m-0 text-sm text-theme-black-200" [ngClass]="{'mb-5': !last}">
+						<span nz-icon [nzType]="formClave.get('nueva')?.value && r.regex.test(formClave.get('nueva')?.value) ? 'check-circle' : 'close-circle'" nzTheme="fill"
+							[ngClass]="{'text-green-800': formClave.get('nueva')?.value && r.regex.test(formClave.get('nueva')?.value), 'text-red-700': !formClave.get('new')?.value || !r.regex.test(formClave.get('nueva')?.value)}"></span>
+						{{ r.label }}
+					</p>
+				</ng-container>
+			</div>
+		</div>
+	</form>
+</div>
