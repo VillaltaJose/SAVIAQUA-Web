@@ -1,50 +1,80 @@
-<div class="w-full p-20">
+<div class="w-full h-full overflow-auto">
+	<nz-spin [nzTip]="'Cargando información...'" [nzSpinning]="loading.pozo" class="w-full h-full">
+		<ng-container *ngIf="pozo">
+			<div class="w-full p-20">
 
-	<div class="w-full grid gap-15 mb-20">
-		<div class="grid-col-4 flex items-center flex-no-wrap gap-15">
-			<button nz-button nzSize="small" style="margin-top: 0.3rem;">
-				<span nz-icon nzType="left"></span>
-			</button>
+				<div class="w-full grid gap-15 mb-20">
+					<div class="grid-col-4 flex items-center flex-no-wrap gap-15">
+						<button nz-button nzSize="small" style="margin-top: 0.3rem;">
+							<span nz-icon nzType="left"></span>
+						</button>
 
-			<div>
-				<h4 class="display-block m-0 font-bold text-lg">Nombre Pozo</h4>
-				<p class="display-block m-0 text-theme-bluegray-500 text-smd font-medium">Nombre Junta</p>
-			</div>
-		</div>
+						<div>
+							<h4 class="display-block m-0 font-bold text-lg">{{ pozo.nombre }}</h4>
+							<p class="display-block m-0 text-theme-bluegray-500 text-smd font-medium">{{ pozo.junta }}</p>
+						</div>
+					</div>
 
-		<form [formGroup]="formParams" class="grid-col-8">
-			<div class="w-full grid">
-				<div class="grid-col-3">
-					<p class="display-block m-0 mb-5">Fecha Inicio</p>
-					<nz-date-picker formControlName="fechaInicio" class="w-full"></nz-date-picker>
+					<form [formGroup]="formParams" class="grid-col-8">
+						<div class="w-full grid">
+							<div class="grid-col-3">
+								<p class="display-block m-0 mb-5">Fecha Inicio</p>
+								<nz-date-picker formControlName="fechaInicio" class="w-full"></nz-date-picker>
+							</div>
+							<div class="grid-col-3">
+								<p class="display-block m-0 mb-5">Fecha Fin</p>
+								<nz-date-picker formControlName="fechaFin" class="w-full"></nz-date-picker>
+							</div>
+							<div class="grid-col-3 flex items-end">
+								<button nz-button class="w-full" nzType="primary"
+									[nzLoading]="loading.mediciones" (click)="obtenerMediciones()">Consultar</button>
+							</div>
+							<div class="grid-col-3 flex items-end flex-no-wrap gap-10">
+								<button nz-button (click)="mostrarModalMapa = true">
+									<span nz-icon nzType="aim"></span>
+								</button>
+							</div>
+						</div>
+					</form>
 				</div>
-				<div class="grid-col-3">
-					<p class="display-block m-0 mb-5">Fecha Fin</p>
-					<nz-date-picker formControlName="fechaFin" class="w-full"></nz-date-picker>
+
+				<div class="w-full grid gap-20">
+					<div *ngFor="let c of charts" class="grid-col-4 rounded-sm border-1 border-solid border-theme-bluegray-400 overflow-hidden">
+						<p class="display-block m-0 font-semibold border-b-1 border-solid border-theme-bluegray-400 text-smd px-10 py-7 bg-theme-bluegray-100">
+							{{ c.name }}
+						</p>
+
+						<div class="w-full p-7 overflow-hidden" style="aspect-ratio: 3 / 2;">
+							<ngx-charts-bar-vertical
+								class="w-full h-full"
+								[results]="c.data"
+								>
+							</ngx-charts-bar-vertical>
+						</div>
+					</div>
 				</div>
-				<div class="grid-col-3 flex items-end">
-					<button nz-button class="w-full" nzType="primary"
-						[nzLoading]="loading.mediciones" (click)="obtenerMediciones()">Consultar</button>
-				</div>
+
 			</div>
-		</form>
-	</div>
 
-	<div class="w-full grid gap-20">
-		<div *ngFor="let c of charts" class="grid-col-4 rounded-sm border-1 border-solid border-theme-bluegray-400 overflow-hidden">
-			<p class="display-block m-0 font-semibold border-b-1 border-solid border-theme-bluegray-400 text-smd px-10 py-7 bg-theme-bluegray-100">
-				{{ c.name }}
-			</p>
 
-			<div class="w-full p-7 overflow-hidden" style="aspect-ratio: 3 / 2;">
-				<ngx-charts-bar-vertical
-					class="w-full h-full"
-					[results]="c.data"
-					>
-				</ngx-charts-bar-vertical>
-			</div>
-		</div>
-	</div>
-
+		</ng-container>
+	</nz-spin>
 </div>
 
+<nz-modal [(nzVisible)]="mostrarModalMapa" nzTitle="Ubicación" (nzOnCancel)="mostrarModalMapa = false" (nzOnOk)="mostrarModalMapa = false"
+	nzWidth="700px">
+
+	<ng-container *nzModalContent>
+		<div class="w-full">
+			<google-map *ngIf="pozo" height="400px" width="100%" [center]="{ lat: pozo.latitude, lng: pozo.longitude }" [zoom]="12">
+				<map-marker [position]="{
+						lat: pozo.latitude,
+						lng: pozo.longitude,
+					}"
+					[options]="markerOptions"
+					[icon]="markerIcon"></map-marker>
+			</google-map>
+		</div>
+	</ng-container>
+
+</nz-modal>

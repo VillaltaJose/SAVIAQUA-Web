@@ -16,6 +16,10 @@ export class PozoService {
 		});
 	}
 
+	obtenerPozo(codigoPozo: number) {
+		return this._http.get<Result<any>>(`pozos/${codigoPozo}`);
+	}
+
 	crearPozo(pozo: any) {
 		return this._http.post<Result<number>>('pozos', pozo);
 	}

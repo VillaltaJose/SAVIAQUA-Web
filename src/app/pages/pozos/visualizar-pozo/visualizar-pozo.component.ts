@@ -18,6 +18,15 @@ export class VisualizarPozoComponent implements OnInit {
 		mediciones: true,
 	}
 
+	markerOptions: google.maps.MarkerOptions = { draggable: false };
+	markerIcon: google.maps.Icon = {
+		url: 'assets/icons/icono-pozo.png',
+		scaledSize: new google.maps.Size(34, 34),
+		anchor: new google.maps.Point(17, 34),
+	};
+
+	pozo: any = null;
+	mostrarModalMapa: boolean = false;
 	charts: any[] = [
 		{
 			name: 'Cloro Residual en el Tiempo (últimos 30 días)',
@@ -49,7 +58,18 @@ export class VisualizarPozoComponent implements OnInit {
 	}
 
 	ngOnInit(): void {
+		this.obtenerPozo();
 		this.obtenerMediciones();
+	}
+
+	obtenerPozo() {
+		this.loading.pozo = true;
+
+		this._pozoService.obtenerPozo(this.formParams.get('codigoPozo')?.value)
+		.pipe(finalize(() => this.loading.pozo = false))
+		.subscribe(api => {
+			this.pozo = api.value;
+		});
 	}
 
 	obtenerMediciones() {
@@ -95,4 +115,5 @@ export class VisualizarPozoComponent implements OnInit {
 			});
 		});
 	}
+
 }

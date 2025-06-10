@@ -8,6 +8,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
+import { NzModalModule } from 'ng-zorro-antd/modal';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
 	declarations: [VisualizarPozoComponent],
@@ -22,6 +25,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		NgxChartsModule,
 		NzInputModule,
 		NzDatePickerModule,
+		NzSpinModule,
+		NzModalModule,
+		GoogleMapsModule,
 	],
 })
 export class VisualizarPozoModule {}
