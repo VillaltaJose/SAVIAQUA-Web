@@ -19,4 +19,8 @@ export class PozoService {
 	crearPozo(pozo: any) {
 		return this._http.post<Result<number>>('pozos', pozo);
 	}
+
+	obtenerMediciones(filter: any) {
+		return this._http.post<Result<any[]>>('pozos/mediciones', filter);
+	}
 }
