@@ -14,6 +14,10 @@ import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthInterceptorsService } from './shared/services/interceptors/auth-interceptor.service';
+import * as echarts from 'echarts/core';
+import { NgxEchartsModule } from 'ngx-echarts';
+
+echarts.use([]);
 
 registerLocaleData(es);
 
@@ -24,6 +28,7 @@ registerLocaleData(es);
 		AppRoutingModule,
 		FormsModule,
 		HttpClientModule,
+		NgxEchartsModule.forRoot({ echarts }),
 		BrowserAnimationsModule,
 	],
 	providers: [
