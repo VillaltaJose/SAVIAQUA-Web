@@ -87,6 +87,31 @@ export class PerfilComponent implements OnInit {
 	}
 
 	actualizarClave() {
+		this.errores.clave = [];
 
+		if (this.formClave.invalid) {
+			this.formClave.markAllAsTouched();
+			return;
+		}
+
+		const data = this.formClave.getRawValue();
+
+		if (data.nueva != data.confirmar) {
+			this.errores.clave = [{
+				text: 'Las claves no coinciden'
+			}];
+
+			return;
+		}
+
+		this.loading.clave = true;
+		this._perfilService.actualizarClave(data)
+		.pipe(finalize(() => this.loading.clave = false))
+		.subscribe(api => {
+			this.formClave.reset();
+			this._nzMessageService.success('Clave actualizada correctamente');
+		}, (error: Result<void>) => {
+			this.errores.clave = error.messages;
+		});
 	}
 }

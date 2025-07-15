@@ -17,4 +17,8 @@ export class PerfilService {
 	actualizarPerfil(perfil: any) {
 		return this._http.put<Result<boolean>>('perfil', perfil);
 	}
+
+	actualizarClave(claves: any) {
+		return this._http.put<Result<boolean>>('perfil/clave', claves);
+	}
 }
