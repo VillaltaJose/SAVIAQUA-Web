@@ -118,7 +118,7 @@
 
 		<div *ngIf="visualizacion == 'map'" class="w-full">
 			<nz-spin [nzTip]="'Cargando pozos...'" [nzSpinning]="loading.pozos">
-				<google-map height="400px" width="100%" [center]="center" [zoom]="zoom">
+				<google-map height="600px" width="100%" [center]="center" [zoom]="zoom">
 					<map-marker *ngFor="let p of pozos"
 						[position]="{
 							lat: p.latitude,
