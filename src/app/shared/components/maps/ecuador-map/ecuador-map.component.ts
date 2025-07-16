@@ -135,7 +135,6 @@ export class EcuadorMapComponent implements OnInit, OnDestroy {
 		this.chart.setOption(option);
 		this.setupEventListeners();
 
-		// Asegurar que el mapa se redimensione correctamente
 		this.setupResizeListener();
 	}
 
@@ -157,7 +156,6 @@ export class EcuadorMapComponent implements OnInit, OnDestroy {
 	}
 
 	private setupResizeListener(): void {
-		// Configurar listener para redimensionar cuando cambie el tamaño del contenedor
 		const resizeObserver = new ResizeObserver(() => {
 			if (this.chart) {
 				this.chart.resize();
@@ -168,7 +166,7 @@ export class EcuadorMapComponent implements OnInit, OnDestroy {
 	}
 
 	private adjustGalapagosPosition(geoJson: any): any {
-		const modifiedGeoJson = JSON.parse(JSON.stringify(geoJson)); // Deep copy
+		const modifiedGeoJson = JSON.parse(JSON.stringify(geoJson));
 
 		modifiedGeoJson.features.forEach((feature: any) => {
 			const provinceName =
@@ -216,13 +214,10 @@ export class EcuadorMapComponent implements OnInit, OnDestroy {
 			const props = feature.properties;
 			return {
 				name: props.nombre || props.dpa_despro || 'Sin nombre',
-				value: props.pob_tot || 0,
-				id: props.id_prov,
-				codigo: props.codigo,
-				poblacion: props.pob_tot,
-				analfabetismo: props.analfabeti,
-				densidad: props.densidad,
-				edadMedia: props.edad_media,
+				id: props.id,
+				zoom: props.zoom,
+				latitud: (props.latitud || 0) * (props.isLatPos ? 1 : -1),
+				longitud: (props.longitud || 0) * (props.isLongPos ? 1 : -1),
 			};
 		});
 		return provinceData;

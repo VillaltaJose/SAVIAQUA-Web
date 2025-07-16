@@ -27,7 +27,7 @@ export class ListadoPozosComponent implements OnInit {
 		currentPage: 1,
 	};
 
-	zoom = 13;
+	zoom = 11;
 	center: google.maps.LatLngLiteral = { lat: -2.9006, lng: -79.0045 };
 	markerOptions: google.maps.MarkerOptions = { draggable: false };
 	markerIcon: google.maps.Icon = {
@@ -95,6 +95,13 @@ export class ListadoPozosComponent implements OnInit {
 	}
 
 	seleccionarProvincia(provincia: any) {
+		this.center = {
+			lat: provincia.latitud || -2.9006,
+			lng: provincia.longitud || -79.0045,
+		}
+
+		this.zoom = provincia.zoom || 11;
+
 		this.provinciaSeleccionada = provincia;
 		this.filtros.patchValue({
 			codigoProvincia: provincia.id,
