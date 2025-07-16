@@ -1,9 +1,9 @@
-<div class="w-screen h-screen flex flex-no-wrap flex-column">
+<div class="w-screen overflow-hidden flex flex-no-wrap flex-column" style="height: 100vh;">
 	<div class="w-full">
 		<app-header></app-header>
 	</div>
 
-	<div class="w-full h-full flex flex-no-wrap">
+	<div class="w-full flex flex-no-wrap" style="height: calc(100% - 5.2rem);">
 		<div class="relative" style="width: 30rem;">
 			<app-sidebar></app-sidebar>
 
@@ -12,7 +12,7 @@
 			</button>
 		</div>
 
-		<div class="w-full">
+		<div class="w-full h-full overflow-auto">
 			<router-outlet></router-outlet>
 		</div>
 	</div>

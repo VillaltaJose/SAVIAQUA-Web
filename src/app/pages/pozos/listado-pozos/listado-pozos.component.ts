@@ -14,8 +14,10 @@ import * as echarts from 'echarts';
 	styleUrls: ['./listado-pozos.component.scss'],
 })
 export class ListadoPozosComponent implements OnInit {
-	visualizacion: 'table' | 'map' = 'table';
+	visualizacion: 'table' | 'map' = 'map';
 	filtros: FormGroup;
+
+	provinciaSeleccionada: any = null;
 
 	pozos: any[] = [];
 	metadata?: Metadata = {
@@ -38,49 +40,6 @@ export class ListadoPozosComponent implements OnInit {
 		pozos: true,
 	};
 
-	private chart: echarts.ECharts | null = null;
-	private provincesData = [
-		{ name: 'Azuay', code: 'AZ', value: 881394, population: 881394 },
-		{ name: 'Bolívar', code: 'BO', value: 209933, population: 209933 },
-		{ name: 'Cañar', code: 'CA', value: 281396, population: 281396 },
-		{ name: 'Carchi', code: 'CR', value: 186869, population: 186869 },
-		{ name: 'Cotopaxi', code: 'CT', value: 488716, population: 488716 },
-		{ name: 'Chimborazo', code: 'CH', value: 524004, population: 524004 },
-		{ name: 'El Oro', code: 'EO', value: 715751, population: 715751 },
-		{ name: 'Esmeraldas', code: 'ES', value: 643654, population: 643654 },
-		{ name: 'Guayas', code: 'GU', value: 4387434, population: 4387434 },
-		{ name: 'Imbabura', code: 'IM', value: 476257, population: 476257 },
-		{ name: 'Loja', code: 'LO', value: 521154, population: 521154 },
-		{ name: 'Los Ríos', code: 'LR', value: 921763, population: 921763 },
-		{ name: 'Manabí', code: 'MA', value: 1562079, population: 1562079 },
-		{
-			name: 'Morona Santiago',
-			code: 'MS',
-			value: 196535,
-			population: 196535,
-		},
-		{ name: 'Napo', code: 'NA', value: 133705, population: 133705 },
-		{ name: 'Pastaza', code: 'PA', value: 114202, population: 114202 },
-		{ name: 'Pichincha', code: 'PI', value: 3228233, population: 3228233 },
-		{ name: 'Tungurahua', code: 'TU', value: 590600, population: 590600 },
-		{
-			name: 'Zamora Chinchipe',
-			code: 'ZC',
-			value: 120416,
-			population: 120416,
-		},
-		{ name: 'Galápagos', code: 'GA', value: 33042, population: 33042 },
-		{ name: 'Sucumbíos', code: 'SU', value: 230503, population: 230503 },
-		{ name: 'Orellana', code: 'OR', value: 161338, population: 161338 },
-		{
-			name: 'Santo Domingo de los Tsáchilas',
-			code: 'SD',
-			value: 458580,
-			population: 458580,
-		},
-		{ name: 'Santa Elena', code: 'SE', value: 401178, population: 401178 },
-	];
-
 	constructor(
 		private _nzDrawerService: NzDrawerService,
 		private _pozoService: PozoService,
@@ -96,9 +55,7 @@ export class ListadoPozosComponent implements OnInit {
 		});
 	}
 
-	ngOnInit(): void {
-		this.obtenerPozos();
-	}
+	ngOnInit(): void { }
 
 	obtenerPozos() {
 		this.loading.pozos = true;
@@ -135,5 +92,14 @@ export class ListadoPozosComponent implements OnInit {
 
 	verPozo(codigo: number) {
 		this._router.navigate(['/pozos', codigo]);
+	}
+
+	seleccionarProvincia(provincia: any) {
+		this.provinciaSeleccionada = provincia;
+		this.filtros.patchValue({
+			codigoProvincia: provincia.id,
+		});
+
+		this.obtenerPozos();
 	}
 }

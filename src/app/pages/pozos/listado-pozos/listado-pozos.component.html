@@ -1,6 +1,20 @@
-<div class="w-full p-20">
+<div class="w-full h-full p-20"
+	[ngClass]="{
+		'overflow-auto': provinciaSeleccionada,
+		' flex flex-no-wrap flex-column': !provinciaSeleccionada
+	}">
 	<div class="w-full flex items-center flex-no-wrap gap-15 justify-between mb-15">
-		<h4 class="display-block m-0 font-bold text-xl">Pozos de agua</h4>
+		<div class="flex flex-no-wrap items-center gap-10">
+			<button *ngIf="provinciaSeleccionada" nz-button nzType="text" (click)="provinciaSeleccionada = null">
+				<span nz-icon nzType="left"></span>
+			</button>
+
+			<h4 class="display-block m-0 font-bold text-xl">Pozos de agua</h4>
+
+			<p *ngIf="provinciaSeleccionada" class="px-10 py-5 rounded-sm m-0 display-block bg-theme-bluegray-500 font-medium text-white">
+				{{ provinciaSeleccionada.name | titlecase }}
+			</p>
+		</div>
 
 		<div class="flex items-center flex-no-wrap gap-10">
 			<nz-radio-group [(ngModel)]="visualizacion">
@@ -19,99 +33,102 @@
 		</div>
 	</div>
 
-	<form [formGroup]="filtros" class="w-full border-1 border-solid border-theme-bluegray-300 rounded-sm p-10 mb-20 bg-theme-bluegray-100 grid">
-		<div class="grid-col-2">
-			<p class="display-block m-0 mb-7 text-smd font-medium">Junta</p>
-			<app-select-junta formControlName="codigoJunta" class="w-full"></app-select-junta>
+	<div class="w-full h-full overflow-auto" style="flex: 1;" *ngIf="!provinciaSeleccionada">
+		<div class="w-full h-full" style="aspect-ratio: 3/2;">
+			<app-ecuador-map (provinciaChange)="seleccionarProvincia($event)"></app-ecuador-map>
 		</div>
-		<div class="grid-col-2">
-			<p class="display-block m-0 mb-7 text-smd font-medium">Provincia</p>
-			<app-select-provincia formControlName="codigoProvincia" class="w-full"></app-select-provincia>
-		</div>
-		<div class="grid-col-2">
-			<p class="display-block m-0 mb-7 text-smd font-medium">Ciudad</p>
-			<app-select-ciudad formControlName="codigoCiudad" class="w-full" [codigoProvincia]="filtros.get('codigoProvincia')?.value"></app-select-ciudad>
-		</div>
-		<div class="grid-col-2">
-			<p class="display-block m-0 mb-7 text-smd font-medium">Parroquia</p>
-			<app-select-parroquia formControlName="codigoParroquia" class="w-full"
-				[codigoProvincia]="filtros.get('codigoProvincia')?.value"
-				[codigoCiudad]="filtros.get('codigoCiudad')?.value"
-				></app-select-parroquia>
-		</div>
-		<div class="grid-col-2 flex items-end">
-			<button nz-button [nzLoading]="loading.pozos" (click)="obtenerPozos()" nzType="primary" class="btn-black w-full">Buscar</button>
-		</div>
-	</form>
-
-	<div class="w-full">
-
-		<app-ecuador-map></app-ecuador-map>
-
-
 	</div>
 
-	<div *ngIf="visualizacion == 'table'" class="w-full">
-		<nz-table #nzTable
-			[nzData]="pozos"
-			[nzLoading]="loading.pozos"
-			nzSize="small"
-			[nzPageSize]="metadata?.pageSize ?? 15"
-			[nzTotal]="metadata?.totalCount ?? 0"
-			[nzShowPagination]="true"
-			[nzFrontPagination]="false"
-			[nzPageIndex]="(metadata?.currentPage ?? 0) + 1">
-			<thead>
-				<tr>
-					<th class="min-size">ID</th>
-					<th>Pozo</th>
-					<th>Junta</th>
-					<th>Ubicación</th>
-					<th>Fecha Creación</th>
-					<th class="min-size"></th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr *ngFor="let i of nzTable.data">
-					<td class="min-size">{{ i.codigo }}</td>
-					<td>{{ i.nombre }}</td>
-					<td>
-						<nz-tag [nzColor]="i.junta | color:'pastel'" class="font-medium">
-							{{ i.junta }}
-						</nz-tag>
-					</td>
-					<td>
-						<!-- <code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">
-							{{ i.latitude }}, {{ i.longitude }}
-						</code> -->
-						{{ i.provincia | titlecase }}, {{ i.ciudad | titlecase }},
-						{{ i.parroquia | titlecase }}
-					</td>
-					<td>{{ i.fechaCreacion | date:'dd/MM/yyyy HH:mm':'GMT-5' }}</td>
-					<td class="min-size">
-						<div class="flex flex-no-wrap gap-10">
-							<a routerLink="/pozos/{{ i.codigo }}" nz-button nzType="text">
-								<span nz-icon nzType="eye"></span>
-							</a>
-						</div>
-					</td>
-				</tr>
-			</tbody>
-		</nz-table>
-	</div>
+	<ng-container *ngIf="provinciaSeleccionada">
+		<div class="w-full items-end flex flex-no-wrap gap-15 border-1 border-solid border-theme-bluegray-300 rounded-sm p-10 mb-20 bg-theme-bluegray-100">
+			<form [formGroup]="filtros" class="w-full grid">
+				<div class="grid-col-2">
+					<p class="display-block m-0 mb-7 text-smd font-medium">Junta</p>
+					<app-select-junta formControlName="codigoJunta" class="w-full"></app-select-junta>
+				</div>
+				<!-- <div class="grid-col-2">
+					<p class="display-block m-0 mb-7 text-smd font-medium">Provincia</p>
+					<app-select-provincia formControlName="codigoProvincia" class="w-full"></app-select-provincia>
+				</div> -->
+				<div class="grid-col-2">
+					<p class="display-block m-0 mb-7 text-smd font-medium">Ciudad</p>
+					<app-select-ciudad formControlName="codigoCiudad" class="w-full" [codigoProvincia]="filtros.get('codigoProvincia')?.value"></app-select-ciudad>
+				</div>
+				<div class="grid-col-2">
+					<p class="display-block m-0 mb-7 text-smd font-medium">Parroquia</p>
+					<app-select-parroquia formControlName="codigoParroquia" class="w-full"
+						[codigoProvincia]="filtros.get('codigoProvincia')?.value"
+						[codigoCiudad]="filtros.get('codigoCiudad')?.value"
+						></app-select-parroquia>
+				</div>
+				<div class="grid-col-2 flex items-end">
+					<button nz-button [nzLoading]="loading.pozos" (click)="obtenerPozos()" nzType="primary" class="btn-black w-full">Buscar</button>
+				</div>
+			</form>
+		</div>
 
-	<div *ngIf="visualizacion == 'map'" class="w-full">
-		<nz-spin [nzTip]="'Cargando pozos...'" [nzSpinning]="loading.pozos">
-			<google-map height="400px" width="100%" [center]="center" [zoom]="zoom">
-				<map-marker *ngFor="let p of pozos"
-					[position]="{
-						lat: p.latitude,
-						lng: p.longitude,
-					}"
-					(mapClick)="verPozo(p.codigo)"
-					[options]="markerOptions"
-					[icon]="markerIcon"></map-marker>
-			</google-map>
-		</nz-spin>
-	</div>
+		<div *ngIf="visualizacion == 'table'" class="w-full">
+			<nz-table #nzTable
+				[nzData]="pozos"
+				[nzLoading]="loading.pozos"
+				nzSize="small"
+				[nzPageSize]="metadata?.pageSize ?? 15"
+				[nzTotal]="metadata?.totalCount ?? 0"
+				[nzShowPagination]="true"
+				[nzFrontPagination]="false"
+				[nzPageIndex]="(metadata?.currentPage ?? 0) + 1">
+				<thead>
+					<tr>
+						<th class="min-size">ID</th>
+						<th>Pozo</th>
+						<th>Junta</th>
+						<th>Ubicación</th>
+						<th>Fecha Creación</th>
+						<th class="min-size"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let i of nzTable.data">
+						<td class="min-size">{{ i.codigo }}</td>
+						<td>{{ i.nombre }}</td>
+						<td>
+							<nz-tag [nzColor]="i.junta | color:'pastel'" class="font-medium">
+								{{ i.junta }}
+							</nz-tag>
+						</td>
+						<td>
+							<!-- <code class="text-sm px-7 py-5 bg-theme-bluegray-100 rounded-sm">
+								{{ i.latitude }}, {{ i.longitude }}
+							</code> -->
+							{{ i.provincia | titlecase }}, {{ i.ciudad | titlecase }},
+							{{ i.parroquia | titlecase }}
+						</td>
+						<td>{{ i.fechaCreacion | date:'dd/MM/yyyy HH:mm':'GMT-5' }}</td>
+						<td class="min-size">
+							<div class="flex flex-no-wrap gap-10">
+								<a routerLink="/pozos/{{ i.codigo }}" nz-button nzType="text">
+									<span nz-icon nzType="eye"></span>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</nz-table>
+		</div>
+
+		<div *ngIf="visualizacion == 'map'" class="w-full">
+			<nz-spin [nzTip]="'Cargando pozos...'" [nzSpinning]="loading.pozos">
+				<google-map height="400px" width="100%" [center]="center" [zoom]="zoom">
+					<map-marker *ngFor="let p of pozos"
+						[position]="{
+							lat: p.latitude,
+							lng: p.longitude,
+						}"
+						(mapClick)="verPozo(p.codigo)"
+						[options]="markerOptions"
+						[icon]="markerIcon"></map-marker>
+				</google-map>
+			</nz-spin>
+		</div>
+	</ng-container>
 </div>
