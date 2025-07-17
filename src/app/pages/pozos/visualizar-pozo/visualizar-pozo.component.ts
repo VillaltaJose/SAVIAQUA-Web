@@ -73,6 +73,10 @@ export class VisualizarPozoComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.obtenerPozo();
+		this.cargarMediciones();
+	}
+
+	cargarMediciones() {
 		this.obtenerUltimaMedicion();
 		this.obtenerMediciones();
 	}
