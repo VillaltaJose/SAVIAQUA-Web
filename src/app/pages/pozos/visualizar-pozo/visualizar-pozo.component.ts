@@ -35,6 +35,18 @@ export class VisualizarPozoComponent implements OnInit {
 			data: [],
 		},
 		{
+			name: 'Distribución de Mediciones por Rango de pH',
+			labelY: 'Número de Mediciones',
+			labelX: 'Fecha de Registro',
+			data: [],
+		},
+		{
+			name: 'Distribución de Mediciones por Rango de Turbidez',
+			labelY: 'Número de Mediciones',
+			labelX: 'Fecha de Registro',
+			data: [],
+		},
+		{
 			name: 'Distribución de Mediciones por Rango de Cloro',
 			labelY: 'Número de Mediciones',
 			labelX: 'Fecha de Registro',
@@ -109,10 +121,7 @@ export class VisualizarPozoComponent implements OnInit {
 
 		const data = this.formParams.getRawValue();
 
-		this.charts[0].data = [];
-		this.charts[1].data = [];
-		this.charts[2].data = [];
-		this.charts[3].data = [];
+		this.charts.forEach(chart => chart.data = []);
 
 		this._pozoService.obtenerMediciones(data)
 		.pipe(finalize(() => {
@@ -120,10 +129,11 @@ export class VisualizarPozoComponent implements OnInit {
 			this.formParams.enable();
 		}))
 		.subscribe(api => {
-			this.charts[0].options = this.getDashboardData(this.charts[0], api.value, 'm1');
-			this.charts[1].options = this.getDashboardData(this.charts[1], api.value, 'm2');
-			this.charts[2].options = this.getDashboardData(this.charts[2], api.value, 'm3');
-			this.charts[3].options = this.getDashboardData(this.charts[3], api.value, 'm4');
+			this.charts[0].options = this.getDashboardData(this.charts[0], api.value, 'cloroResidual', 'Cloro Residual');
+			this.charts[1].options = this.getDashboardData(this.charts[1], api.value, 'm1');
+			this.charts[2].options = this.getDashboardData(this.charts[2], api.value, 'm2');
+			this.charts[3].options = this.getDashboardData(this.charts[3], api.value, 'm3');
+			this.charts[4].options = this.getDashboardData(this.charts[4], api.value, 'm4');
 		});
 	}
 
