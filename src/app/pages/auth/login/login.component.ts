@@ -39,6 +39,7 @@ export class LoginComponent {
 		this.loading = true;
 
 		const data = this.formLogin.getRawValue();
+		data.correo = data.correo.trim().toLowerCase();
 
 		this._authService.login(data)
 		.pipe(finalize(() => this.loading = false))
