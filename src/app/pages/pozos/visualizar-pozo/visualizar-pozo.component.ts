@@ -58,12 +58,6 @@ export class VisualizarPozoComponent implements OnInit {
 			labelX: 'Fecha de Registro',
 			data: [],
 		},
-		{
-			name: 'Número de Mediciones por Técnico en el Pozo',
-			labelY: 'Número de Mediciones',
-			labelX: 'Fecha de Registro',
-			data: [],
-		},
 	];
 
 	ultimaMedicion: any;
