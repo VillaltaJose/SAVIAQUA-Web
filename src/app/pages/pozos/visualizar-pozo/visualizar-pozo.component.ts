@@ -30,14 +30,20 @@ export class VisualizarPozoComponent implements OnInit {
 	charts: any[] = [
 		{
 			name: 'Cloro Residual en el Tiempo (últimos 30 días)',
+			labelY: 'Cloro Residual (mg/L)',
+			labelX: 'Fecha de Registro',
 			data: [],
 		},
 		{
 			name: 'Distribución de Mediciones por Rango de Cloro',
+			labelY: 'Número de Mediciones',
+			labelX: 'Fecha de Registro',
 			data: [],
 		},
 		{
 			name: 'Número de Mediciones por Técnico en el Pozo',
+			labelY: 'Número de Mediciones',
+			labelX: 'Fecha de Registro',
 			data: [],
 		},
 	];
@@ -93,27 +99,94 @@ export class VisualizarPozoComponent implements OnInit {
 			this.formParams.enable();
 		}))
 		.subscribe(api => {
-			this.charts[0].data = api.value.map(m => {
-				return {
-					name: this._datePipe.transform(m.fechaRegistro, 'dd MMM yyyy HH:mm:ss'),
-					value: m.m1,
-				};
-			});
-
-			this.charts[1].data = api.value.map(m => {
-				return {
-					name: this._datePipe.transform(m.fechaRegistro, 'dd MMM yyyy HH:mm:ss'),
-					value: m.m2,
-				};
-			});
-
-			this.charts[2].data = api.value.map(m => {
-				return {
-					name: this._datePipe.transform(m.fechaRegistro, 'dd MMM yyyy HH:mm:ss'),
-					value: m.m3,
-				};
-			});
+			this.charts[0].options = this.getDashboardData(this.charts[0], api.value, 'm1');
+			this.charts[1].options = this.getDashboardData(this.charts[1], api.value, 'm2');
+			this.charts[2].options = this.getDashboardData(this.charts[2], api.value, 'm3');
 		});
+	}
+
+	getDashboardData(chart: any, data: any[], metrica: string, tooltip?: string) {
+		data = data.reverse();
+		return {
+			title: {
+				text: chart.name,
+				textStyle: {
+					fontSize: 13.2,
+					fontWeight: '600',
+					fontFamily: 'Manrope',
+					color: '#0E1A2B',
+				},
+			},
+			visualMap: {
+				show: false,
+    			dimension: 0,
+				pieces: [
+					{
+						gt: 0,
+						lte: 1000,
+						color: '#73c0de'
+					},
+				]
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'cross',
+				},
+			},
+			grid: {
+				show: true,
+				top: 40,
+				bottom: 22,
+				left: 30,
+				right: 10,
+				containLabel: true
+			},
+			xAxis: {
+				name: chart.labelX,
+				show: true,
+				nameLocation: 'middle',
+				nameGap: 70,
+				type: 'category',
+				boundaryGap: false,
+				axisLabel: {
+					formatter: '{value}',
+					rotate: 75,
+					fontFamily: 'Manrope',
+					fontSize: 10,
+					color: '#0E1A2B',
+					fontWeight: '450',
+					interval: 1,
+				},
+				data: data.map(m => this._datePipe.transform(m.fechaRegistro, 'dd MMM HH:mm')),
+			},
+			yAxis: {
+				name: chart.labelY,
+				show: true,
+				nameLocation: 'middle',
+				nameRotate: 90,
+				nameGap: 33,
+				type: 'value',
+				axisLabel: {
+					formatter: '{value}',
+					fontFamily: 'Manrope',
+					fontSize: 11,
+					color: '#0E1A2B',
+					fontWeight: '500',
+				},
+				axisPointer: {
+					snap: true,
+				},
+			},
+			series: [
+				{
+					name: tooltip ?? metrica,
+					type: 'line',
+					smooth: true,
+					data: data.map(m => m[metrica]),
+				},
+			],
+		};
 	}
 
 }

@@ -15,9 +15,12 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthInterceptorsService } from './shared/services/interceptors/auth-interceptor.service';
 import * as echarts from 'echarts/core';
+import { TitleComponent, TooltipComponent, LegendComponent, GridComponent } from 'echarts/components';
+import { CanvasRenderer } from 'echarts/renderers';
+import { LineChart } from 'echarts/charts';
 import { NgxEchartsModule } from 'ngx-echarts';
 
-echarts.use([]);
+echarts.use([TitleComponent, LineChart, TooltipComponent, LegendComponent, CanvasRenderer, GridComponent]);
 
 registerLocaleData(es);
 

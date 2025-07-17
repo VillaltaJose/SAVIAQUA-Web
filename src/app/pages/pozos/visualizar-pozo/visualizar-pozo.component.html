@@ -40,16 +40,25 @@
 
 				<div class="w-full grid gap-20">
 					<div *ngFor="let c of charts" class="grid-col-4 rounded-sm border-1 border-solid border-theme-bluegray-400 overflow-hidden">
-						<p class="display-block m-0 font-semibold border-b-1 border-solid border-theme-bluegray-400 text-smd px-10 py-7 bg-theme-bluegray-100">
+						<!-- <p class="display-block m-0 font-semibold border-b-1 border-solid border-theme-bluegray-400 text-smd px-10 py-7 bg-theme-bluegray-100">
 							{{ c.name }}
-						</p>
+						</p> -->
 
-						<div class="w-full p-7 overflow-hidden" style="aspect-ratio: 3 / 2;">
-							<ngx-charts-bar-vertical
+						<div class="w-full p-7 overflow-hidden" style="aspect-ratio: 3 / 2.4;">
+							<div *ngIf="!loading.mediciones" echarts class="demo-chart h-full" [options]="c.options"></div>
+							<!-- <ngx-charts-line-chart
 								class="w-full h-full"
 								[results]="c.data"
+								[legend]="false"
+								[showXAxisLabel]="true"
+								[showYAxisLabel]="true"
+								[yAxis]="true"
+								[xAxis]="true"
+								[timeline]="true"
+								[xAxisLabel]="c.labelX"
+								[yAxisLabel]="c.labelY"
 								>
-							</ngx-charts-bar-vertical>
+							</ngx-charts-line-chart> -->
 						</div>
 					</div>
 				</div>

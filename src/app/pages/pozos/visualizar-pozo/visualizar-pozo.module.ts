@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzModalModule } from 'ng-zorro-antd/modal';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 @NgModule({
 	declarations: [VisualizarPozoComponent],
@@ -28,6 +29,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
 		NzSpinModule,
 		NzModalModule,
 		GoogleMapsModule,
+		NgxEchartsModule,
 	],
 })
 export class VisualizarPozoModule {}
