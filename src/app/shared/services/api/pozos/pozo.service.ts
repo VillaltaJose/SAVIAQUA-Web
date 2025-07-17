@@ -27,4 +27,8 @@ export class PozoService {
 	obtenerMediciones(filter: any) {
 		return this._http.post<Result<any[]>>('pozos/mediciones', filter);
 	}
+
+	obtenerUltimaMedicion(codigoPozo: number) {
+		return this._http.post<Result<any>>(`pozos/${codigoPozo}/mediciones/actualidad`, {});
+	}
 }

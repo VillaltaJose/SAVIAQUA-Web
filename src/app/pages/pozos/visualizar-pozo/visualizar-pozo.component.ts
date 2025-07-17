@@ -46,7 +46,15 @@ export class VisualizarPozoComponent implements OnInit {
 			labelX: 'Fecha de Registro',
 			data: [],
 		},
+		{
+			name: 'Número de Mediciones por Técnico en el Pozo',
+			labelY: 'Número de Mediciones',
+			labelX: 'Fecha de Registro',
+			data: [],
+		},
 	];
+
+	ultimaMedicion: any;
 
 	constructor(
 		private _pozoService: PozoService,
@@ -65,7 +73,15 @@ export class VisualizarPozoComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.obtenerPozo();
+		this.obtenerUltimaMedicion();
 		this.obtenerMediciones();
+	}
+
+	obtenerUltimaMedicion() {
+		this._pozoService.obtenerUltimaMedicion(this.formParams.get('codigoPozo')?.value)
+		.subscribe(api => {
+			this.ultimaMedicion = api.value;
+		});
 	}
 
 	obtenerPozo() {
@@ -92,6 +108,7 @@ export class VisualizarPozoComponent implements OnInit {
 		this.charts[0].data = [];
 		this.charts[1].data = [];
 		this.charts[2].data = [];
+		this.charts[3].data = [];
 
 		this._pozoService.obtenerMediciones(data)
 		.pipe(finalize(() => {
@@ -102,6 +119,7 @@ export class VisualizarPozoComponent implements OnInit {
 			this.charts[0].options = this.getDashboardData(this.charts[0], api.value, 'm1');
 			this.charts[1].options = this.getDashboardData(this.charts[1], api.value, 'm2');
 			this.charts[2].options = this.getDashboardData(this.charts[2], api.value, 'm3');
+			this.charts[3].options = this.getDashboardData(this.charts[3], api.value, 'm4');
 		});
 	}
 
