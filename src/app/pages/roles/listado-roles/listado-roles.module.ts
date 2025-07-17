@@ -8,6 +8,7 @@ import { NzTableModule } from 'ng-zorro-antd/table';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { EditarRolModule } from '../editar-rol/editar-rol.module';
+import { NuevoRolModule } from '../nuevo-rol/nuevo-rol.module';
 
 @NgModule({
 	declarations: [ListadoRolesComponent],
@@ -20,6 +21,7 @@ import { EditarRolModule } from '../editar-rol/editar-rol.module';
 		NzIconModule,
 		NzDrawerModule,
 		EditarRolModule,
+		NuevoRolModule,
 	],
 })
 export class ListadoRolesModule {}

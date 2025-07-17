@@ -2,17 +2,12 @@
 	<div class="w-full h-full overflow-auto p-15">
 		<form [formGroup]="form" class="w-full grid overflow-auto pb-10">
 			<div class="grid-col-12">
-				<h4 class="font-bold m-0 w-full">Editar Rol</h4>
+				<h4 class="font-bold m-0 w-full">Nuevo Rol</h4>
 			</div>
 
-			<div class="grid-col-11">
+			<div class="grid-col-12">
 				<p class="display-block m-0 mb-7 font-medium">Nombre</p>
 				<input nz-input formControlName="nombre" type="text" class="w-full">
-			</div>
-
-			<div class="grid-col-1">
-				<p class="display-block m-0 mb-7 font-medium">Activo</p>
-				<nz-switch formControlName="activo"></nz-switch>
 			</div>
 
 			<div class="grid-col-12">
@@ -64,6 +59,6 @@
 
 	<div class="w-full border-t-1 border-solid border-theme-bluegray-300 p-15 flex gap-15 justify-end">
 		<button nz-button [disabled]="loading.guardar" (click)="cerrarDrawer()">Cancelar</button>
-		<button nz-button [nzLoading]="loading.guardar" (click)="guardarCambios()" nzType="primary">Guardar rol</button>
+		<button nz-button [nzLoading]="loading.guardar" (click)="guardarCambios()" nzType="primary">Registrar rol</button>
 	</div>
 </div>

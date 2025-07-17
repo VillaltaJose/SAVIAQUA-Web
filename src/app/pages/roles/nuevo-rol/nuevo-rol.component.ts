@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzDrawerRef } from 'ng-zorro-antd/drawer';
 import { finalize } from 'rxjs';
@@ -7,17 +7,15 @@ import { PermisoService } from 'src/app/shared/services/api/roles/permiso.servic
 import { RolService } from 'src/app/shared/services/api/roles/rol.service';
 
 @Component({
-	selector: 'app-editar-rol',
-	templateUrl: './editar-rol.component.html',
-	styleUrls: ['./editar-rol.component.scss'],
+	selector: 'app-nuevo-rol',
+	templateUrl: './nuevo-rol.component.html',
+	styleUrls: ['./nuevo-rol.component.scss'],
 })
-export class EditarRolComponent implements OnInit {
+export class NuevoRolComponent {
 	loading = {
 		permisos: true,
 		guardar: false,
 	};
-
-	@Input('codigo') codigo!: number;
 
 	permisos: any[] = [];
 	form: FormGroup;
@@ -29,32 +27,14 @@ export class EditarRolComponent implements OnInit {
 		private _nzDrawerRef: NzDrawerRef,
 	) {
 		this.form = new FormGroup({
-			codigo: new FormControl(null, []),
 			nombre: new FormControl(null, [Validators.required]),
-			descripcion: new FormControl('', [Validators.required]),
-			activo: new FormControl(null, []),
+			descripcion: new FormControl(null, [Validators.required]),
 			permisos: new FormControl([], []),
 		});
 	}
 
 	ngOnInit(): void {
-		this.form.get('codigo')?.setValue(this.codigo);
-
-		this.obtenerRol();
 		this.obtenerPermisos();
-	}
-
-	obtenerRol() {
-		this._rolService.obtenerRol(this.codigo)
-		.subscribe(api => {
-			this.form.patchValue(api.value);
-
-			this.permisos.forEach(p => {
-				p.checked = this.form.value.permisos.includes(p.codigo);
-			});
-		}, (error: Result<void>) => {
-			this.errores = error.messages;
-		});
 	}
 
 	obtenerPermisos() {
@@ -96,14 +76,14 @@ export class EditarRolComponent implements OnInit {
 		}
 
 		this.loading.guardar = true;
-		const data = this.form.getRawValue();
-
 		this.errores = [];
 
-		this._rolService.actualizarRol(data)
+		const data = this.form.getRawValue();
+
+		this._rolService.registrarRol(data)
 		.pipe(finalize(() => this.loading.guardar = false))
 		.subscribe(api => {
-			this._nzDrawerRef.close(true);
+			this._nzDrawerRef.close(api.value);
 		}, (error: Result<void>) => {
 			this.errores = error.messages;
 		});

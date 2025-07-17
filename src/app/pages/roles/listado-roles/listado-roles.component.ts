@@ -3,6 +3,7 @@ import { NzDrawerService } from 'ng-zorro-antd/drawer';
 import { finalize } from 'rxjs';
 import { RolService } from 'src/app/shared/services/api/roles/rol.service';
 import { EditarRolComponent } from '../editar-rol/editar-rol.component';
+import { NuevoRolComponent } from '../nuevo-rol/nuevo-rol.component';
 
 @Component({
 	selector: 'app-listado-roles',
@@ -32,6 +33,23 @@ export class ListadoRolesComponent implements OnInit {
 		.pipe(finalize(() => this.loading.roles = false))
 		.subscribe(api => {
 			this.roles = api.value;
+		});
+	}
+
+	abrirDrawerNuevoRol() {
+		const drawer = this._nzDrawerService.create({
+			nzContent: NuevoRolComponent,
+			nzPlacement: 'right',
+			nzWidth: '50rem',
+			nzWrapClassName: 'full-screen-drawer',
+			nzCloseOnNavigation: true,
+			nzClosable: false,
+		});
+
+		drawer.afterClose.subscribe((data) => {
+			if (!data) return;
+
+			this.obtenerRoles();
 		});
 	}
 
